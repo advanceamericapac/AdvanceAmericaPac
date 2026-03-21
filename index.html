@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advance America — Reform Democracy. Build the Future.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #C8102E;
+      --red-light: #f5e6e9;
+      --red-dark: #9a0b22;
+      --black: #0d0d0d;
+      --dark: #1a1a1a;
+      --mid: #4a4a4a;
+      --light: #8a8a8a;
+      --border: #e8e8e8;
+      --bg: #ffffff;
+      --bg-off: #fafaf9;
+      --bg-dark: #f4f4f2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .nav-logo-dot {
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.78rem !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--red-dark) !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      padding-top: 64px;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #fff 55%, #f9f0f2 100%);
+      z-index: 0;
+    }
+
+    .hero-grid-overlay {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.35;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px 120px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid var(--red);
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      max-width: 820px;
+      margin-bottom: 32px;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--red);
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--mid);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 52px;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: #fff;
+      padding: 16px 36px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      padding: 16px 36px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 2px solid var(--black);
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--black); color: #fff; }
+
+    .btn-red {
+      background: var(--red);
+      color: #fff;
+      padding: 16px 36px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 2px solid var(--red);
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+    .hero-stat-bar {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      background: var(--black);
+      padding: 20px 40px;
+      display: flex; justify-content: center; gap: 80px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero-stat-num span { color: var(--red); }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 100px 40px; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+
+    /* ─── PROBLEM ─── */
+    #problem { background: var(--bg-off); }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 60px;
+    }
+
+    .problem-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 36px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .problem-card:hover {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--red);
+      border-radius: 6px 0 0 6px;
+    }
+
+    .problem-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+
+    .problem-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    .problem-card p {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* ─── WASTE TRACKER ─── */
+    #waste { background: var(--bg); }
+
+    .waste-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    .waste-total-box {
+      background: var(--black);
+      border-radius: 6px;
+      padding: 36px;
+      text-align: right;
+    }
+
+    .waste-total-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+
+    .waste-total-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1;
+    }
+
+    .waste-total-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 8px;
+    }
+
+    /* TOP MARKUPS */
+    .top-markups-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 20px;
+    }
+
+    .top-markups-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .markup-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .markup-card:hover {
+      box-shadow: 0 6px 32px rgba(200,16,46,0.1);
+      transform: translateY(-2px);
+    }
+
+    .markup-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .markup-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .markup-price {
+      font-size: 0.72rem;
+      color: var(--light);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* DETAIL TABLE */
+    .waste-filter-bar {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      background: none;
+      cursor: pointer;
+      color: var(--mid);
+      transition: all 0.18s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--black);
+      color: #fff;
+      border-color: var(--black);
+    }
+
+    .waste-table {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .waste-row {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      align-items: center;
+      gap: 20px;
+      transition: box-shadow 0.18s;
+    }
+
+    .waste-row:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+    .waste-row.scandalous {
+      border-left: 3px solid var(--red);
+    }
+
+    .waste-row-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .waste-row-desc {
+      font-size: 0.78rem;
+      color: var(--light);
+      line-height: 1.5;
+    }
+
+    .waste-row-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: #ffeaed;
+      color: var(--red);
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .waste-price-block { text-align: center; }
+
+    .waste-price-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 4px;
+    }
+
+    .waste-price-gov {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--red);
+    }
+
+    .waste-price-real {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #2a7a2a;
+    }
+
+    .waste-markup-block { text-align: right; }
+
+    .waste-markup-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--red);
+    }
+
+    .waste-source {
+      font-size: 0.68rem;
+      color: var(--light);
+      margin-top: 2px;
+    }
+
+    /* ─── SOLUTION ─── */
+    #solution { background: var(--bg-off); }
+
+    .solution-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .solution-visual {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .solution-block {
+      border-radius: 6px;
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-block.s1 { background: var(--black); color: #fff; }
+    .solution-block.s2 { background: var(--red); color: #fff; }
+    .solution-block.s3 { background: #fff; border: 1.5px solid var(--border); color: var(--black); }
+
+    .solution-block-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 6px;
+    }
+
+    .solution-block-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .solution-block-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .solution-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 16px;
+    }
+
+    .solution-text p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    /* ─── PRINCIPLES ─── */
+    #principles { background: var(--black); }
+
+    #principles .section-label { color: rgba(200,16,46,0.85); }
+    #principles .section-label::before { background: rgba(200,16,46,0.85); }
+
+    #principles .section-title { color: #fff; }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .principle-item {
+      background: var(--black);
+      padding: 40px 28px;
+      transition: background 0.2s;
+    }
+
+    .principle-item:hover { background: #1e1e1e; }
+
+    .principle-icon {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .principle-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .principle-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    .principle-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #how { background: var(--bg); }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+      background: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .how-block {
+      background: var(--bg);
+      padding: 56px 40px;
+      position: relative;
+    }
+
+    .how-block::after {
+      content: '→';
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: var(--border);
+      z-index: 2;
+    }
+
+    .how-block:last-child::after { display: none; }
+
+    .how-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--red-light);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .how-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .how-subtitle {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .how-body {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+
+    .how-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 20px;
+    }
+
+    .how-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      background: var(--bg-dark);
+      color: var(--mid);
+    }
+
+    /* ─── JOIN ─── */
+    #join {
+      background: var(--bg-off);
+      padding: 100px 40px;
+    }
+
+    .join-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .join-inner .section-label { justify-content: center; }
+
+    .join-inner .section-title { margin-left: auto; margin-right: auto; }
+
+    .join-inner .section-body { margin: 0 auto 48px; text-align: center; }
+
+    .join-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .join-row { display: flex; gap: 14px; }
+
+    .join-input {
+      flex: 1;
+      padding: 16px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .join-input:focus { border-color: var(--black); }
+
+    .join-input::placeholder { color: var(--light); }
+
+    .join-submit {
+      width: 100%;
+      padding: 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .join-submit:hover { background: var(--red-dark); }
+
+    .join-disclaimer {
+      font-size: 0.72rem;
+      color: var(--light);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      padding: 48px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #fff;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex; gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #fff; }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+    .hero-title { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+    .hero-sub { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+    .hero-buttons { animation: fadeUp 0.6s ease both; animation-delay: 0.55s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+
+      section { padding: 72px 24px; }
+
+      .hero-content { padding: 60px 24px 100px; }
+
+      .hero-stat-bar { gap: 32px; padding: 16px 24px; }
+
+      .problem-grid { grid-template-columns: 1fr; }
+
+      .top-markups-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .waste-intro { grid-template-columns: 1fr; gap: 32px; }
+
+      .waste-row {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .waste-row .waste-markup-block {
+        grid-column: 1 / -1;
+        text-align: left;
+      }
+
+      .solution-cols { grid-template-columns: 1fr; gap: 40px; }
+
+      .principles-grid { grid-template-columns: 1fr 1fr; }
+
+      .how-grid { grid-template-columns: 1fr; }
+      .how-block::after { display: none; }
+
+      .join-row { flex-direction: column; }
+
+      footer { flex-direction: column; gap: 16px; }
+    }
+
+    @media (max-width: 540px) {
+      .top-markups-grid { grid-template-columns: 1fr 1fr; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-dot"></span>
+    Advance America
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#waste">The Waste</a></li>
+    <li><a href="#solution">The Solution</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#join" class="nav-cta">Join</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Political Reform Movement · Est. 2025</div>
+    <h1 class="hero-title">Reform <em>Democracy.</em><br>Build the Future.</h1>
+    <p class="hero-sub">Our institutions were built for a slower world. Today's problems move faster than government can respond. Advance America is building a system designed for the modern age.</p>
+    <div class="hero-buttons">
+      <a href="#solution" class="btn-primary">Learn the System</a>
+      <a href="#join" class="btn-outline">Join the Movement</a>
+    </div>
+  </div>
+  <div class="hero-stat-bar">
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span>$1.7T</span></div>
+      <div class="hero-stat-label">Annual Federal Deficit</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span>175</span>+</div>
+      <div class="hero-stat-label">Major Agencies &amp; Bureaus</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span>3,000</span>+</div>
+      <div class="hero-stat-label">Federal Programs</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span>18%</span></div>
+      <div class="hero-stat-label">Congress Approval Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PROBLEM ═══════════════════════════════ -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">The System Isn't Broken.<br>It's Outdated.</h2>
+    <p class="section-body">America's governing institutions were designed in an era of slower communication, simpler economics, and less complex global interdependencies. The 21st century demands something better.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-number">01 / SPEED</div>
+        <h3>Government Moves Too Slowly</h3>
+        <p>The average piece of major legislation takes 7 years from introduction to enactment. Climate change, AI governance, and infrastructure crises cannot wait for multi-year procedural cycles designed in the 18th century.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">02 / EXPERTISE</div>
+        <h3>Decisions Made Without Expertise</h3>
+        <p>Elected officials vote on highly technical domains — semiconductor policy, pandemic response, nuclear regulation — without the background to evaluate them. Good intentions without competence produce poor outcomes.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">03 / EFFICIENCY</div>
+        <h3>Rampant Bureaucratic Waste</h3>
+        <p>The federal government spends over $175 billion annually on improper payments alone. Procurement systems routinely pay 10x–100x market price for ordinary goods. Duplication across agencies wastes billions more.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-number">04 / COMPLEXITY</div>
+        <h3>Institutions Can't Handle Modern Systems</h3>
+        <p>Supply chains, financial markets, energy grids, and public health systems are interconnected in ways that require long-horizon strategic thinking. Short electoral cycles create systematic bias toward short-term decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ WASTE TRACKER ═══════════════════════════════ -->
+<section id="waste">
+  <div class="section-inner">
+    <div class="section-label">Government Waste Tracker</div>
+    <div class="waste-intro">
+      <div>
+        <h2 class="section-title">Where the System Fails</h2>
+        <p class="section-body">Exposed: What the federal government pays vs. what the same item costs on the open market — across defense, healthcare, IT, and real estate.</p>
+      </div>
+      <div class="waste-total-box">
+        <div class="waste-total-label">Estimated Annual Federal Waste</div>
+        <div class="waste-total-num">$500B+</div>
+        <div class="waste-total-sub">Improper payments · Procurement overruns · Unused real estate · Failed IT · Medicare fraud</div>
+      </div>
+    </div>
+
+    <!-- TOP 5 CARDS -->
+    <div class="top-markups-title">▲ Top 5 Worst Markups</div>
+    <div class="top-markups-grid">
+      <div class="markup-card">
+        <div class="markup-pct">7,900%</div>
+        <div class="markup-name">Pentagon Toilet Seat</div>
+        <div class="markup-price">$640 vs $8</div>
+      </div>
+      <div class="markup-card">
+        <div class="markup-pct">4,000%</div>
+        <div class="markup-name">Military Hammer</div>
+        <div class="markup-price">$435 vs ~$10</div>
+      </div>
+      <div class="markup-card">
+        <div class="markup-pct">2,500%</div>
+        <div class="markup-name">Air Force Ashtrays</div>
+        <div class="markup-price">$660 vs ~$25</div>
+      </div>
+      <div class="markup-card">
+        <div class="markup-pct">1,200%</div>
+        <div class="markup-name">Navy Coffee Maker</div>
+        <div class="markup-price">$7,622 vs ~$590</div>
+      </div>
+      <div class="markup-card">
+        <div class="markup-pct">900%</div>
+        <div class="markup-name">DoD Spare Parts (avg.)</div>
+        <div class="markup-price">Avg. 9x market price</div>
+      </div>
+    </div>
+
+    <!-- DETAIL TABLE -->
+    <div class="waste-filter-bar">
+      <span style="font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--light);margin-right:4px;">Category:</span>
+      <button class="filter-btn active" onclick="filterWaste('all', this)">All</button>
+      <button class="filter-btn" onclick="filterWaste('defense', this)">Defense</button>
+      <button class="filter-btn" onclick="filterWaste('health', this)">Healthcare</button>
+      <button class="filter-btn" onclick="filterWaste('tech', this)">IT &amp; Tech</button>
+      <button class="filter-btn" onclick="filterWaste('realestate', this)">Real Estate</button>
+    </div>
+
+    <div class="waste-table" id="wasteTable">
+
+      <div class="waste-row scandalous" data-cat="defense">
+        <div>
+          <div class="waste-row-badge">Scandalous</div>
+          <div class="waste-row-name">Pentagon Toilet Seat</div>
+          <div class="waste-row-desc">Plastic toilet seat covers for Navy P-3 aircraft procured through standard defense contracts. Audit discovered by journalists via FOIA in 1985; pattern continues.</div>
+          <div class="waste-source">Source: DoD Inspector General / The Washington Post</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Government Pays</div>
+          <div class="waste-price-gov">$640</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Real Value</div>
+          <div class="waste-price-real">$8</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">7,900%</div>
+          <div class="waste-source">Markup</div>
+        </div>
+      </div>
+
+      <div class="waste-row scandalous" data-cat="defense">
+        <div>
+          <div class="waste-row-badge">Scandalous</div>
+          <div class="waste-row-name">Military Procurement Overruns (F-35 Program)</div>
+          <div class="waste-row-desc">The F-35 program is now $165 billion over its original budget estimate. Per-unit costs rose from $85M to over $135M. The most expensive weapons program in U.S. history.</div>
+          <div class="waste-source">Source: GAO Report GAO-21-callable / Pentagon</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Total Program Cost</div>
+          <div class="waste-price-gov">$412B</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Original Estimate</div>
+          <div class="waste-price-real">$247B</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">+$165B</div>
+          <div class="waste-source">Overrun</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="health">
+        <div>
+          <div class="waste-row-badge">Excessive</div>
+          <div class="waste-row-name">Medicare Improper Payments (Annual)</div>
+          <div class="waste-row-desc">HHS estimates $31.6 billion in improper Medicare payments annually — including payments for services not rendered, duplicate billing, and upcoding. A chronic, unresolved problem.</div>
+          <div class="waste-source">Source: HHS Office of Inspector General 2023</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Annual Waste</div>
+          <div class="waste-price-gov">$31.6B</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Should Be</div>
+          <div class="waste-price-real">$0</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">$31.6B</div>
+          <div class="waste-source">Lost / Year</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="tech">
+        <div>
+          <div class="waste-row-badge">Excessive</div>
+          <div class="waste-row-name">Federal IT Project Failures (Annual)</div>
+          <div class="waste-row-desc">The federal government spends $100B+ on IT annually. GAO identifies dozens of high-risk projects each year. The FBI's Virtual Case File system cost $170M and was abandoned. HealthCare.gov launch wasted $600M.</div>
+          <div class="waste-source">Source: GAO High-Risk Report 2023 / OMB IT Dashboard</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Wasted on Failed IT</div>
+          <div class="waste-price-gov">~$20B+</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Private Sector Equiv.</div>
+          <div class="waste-price-real">$2–4B</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">5–10x</div>
+          <div class="waste-source">Failure Rate</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="realestate">
+        <div>
+          <div class="waste-row-badge">Excessive</div>
+          <div class="waste-row-name">Unused Federal Office Space</div>
+          <div class="waste-row-desc">The federal government owns or leases 375,000+ buildings totaling 2.9 billion square feet. GAO reports that agencies consistently underutilize 20–50% of their space, costing taxpayers $1.7B+/year in unneeded leases.</div>
+          <div class="waste-source">Source: GAO-23-106468 / GSA Federal Real Property Data</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Wasted Space Cost</div>
+          <div class="waste-price-gov">$1.7B/yr</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Occupancy Rate</div>
+          <div class="waste-price-real">~50%</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">$1.7B</div>
+          <div class="waste-source">Wasted / Year</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="defense">
+        <div>
+          <div class="waste-row-badge">Unaudited</div>
+          <div class="waste-row-name">Pentagon — 6th Consecutive Failed Audit</div>
+          <div class="waste-row-desc">The Department of Defense — with a $842 billion annual budget — has failed its financial audit for six consecutive years. It cannot account for the location or condition of trillions in assets. No private company of any size could operate this way.</div>
+          <div class="waste-source">Source: DoD Office of Inspector General, 2023</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Annual Budget</div>
+          <div class="waste-price-gov">$842B</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Properly Audited</div>
+          <div class="waste-price-real">$0</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">6 Fails</div>
+          <div class="waste-source">Consecutive Audits</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="health">
+        <div>
+          <div class="waste-row-badge">Excessive</div>
+          <div class="waste-row-name">Drug Price Disparities vs. OECD</div>
+          <div class="waste-row-desc">Americans pay 2.56x more for brand-name prescription drugs than residents of other wealthy nations. Federal programs like Medicare and Medicaid are legally restricted from negotiating prices on most drugs.</div>
+          <div class="waste-source">Source: RAND Corporation Drug Price Comparison Study 2021</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">U.S. Average Price</div>
+          <div class="waste-price-gov">2.56x</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">OECD Average</div>
+          <div class="waste-price-real">1x</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">156%</div>
+          <div class="waste-source">Overpayment</div>
+        </div>
+      </div>
+
+      <div class="waste-row" data-cat="tech">
+        <div>
+          <div class="waste-row-badge">Excessive</div>
+          <div class="waste-row-name">Legacy IT Systems Maintenance</div>
+          <div class="waste-row-desc">Federal agencies spend 80% of their IT budget maintaining outdated legacy systems, some running on COBOL code from the 1960s. The IRS still uses a tax system from 1962. The SSA runs 60-year-old software. This leaves almost nothing for modernization.</div>
+          <div class="waste-source">Source: GAO High-Risk IT Report / OMB Federal IT Budget</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Spent on Legacy</div>
+          <div class="waste-price-gov">80%</div>
+        </div>
+        <div class="waste-price-block">
+          <div class="waste-price-label">Industry Standard</div>
+          <div class="waste-price-real">25–35%</div>
+        </div>
+        <div class="waste-markup-block">
+          <div class="waste-markup-num">2–3x</div>
+          <div class="waste-source">Industry Norms</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SOLUTION ═══════════════════════════════ -->
+<section id="solution">
+  <div class="section-inner">
+    <div class="section-label">The Solution</div>
+    <h2 class="section-title">A Better System</h2>
+    <p class="section-body">The answer is not more ideology — it's better institutional design. Democracy sets direction. Experts execute. Executives coordinate. Each layer does what it does best.</p>
+    <div class="solution-cols">
+      <div class="solution-visual">
+        <div class="solution-block s1">
+          <div class="solution-block-label">Layer 1 · Direction</div>
+          <div class="solution-block-title">Democratic Legislature</div>
+          <div class="solution-block-body">Elected representatives set national priorities, approve budgets, and provide democratic legitimacy. They define the "what" — the values and direction of the nation.</div>
+        </div>
+        <div class="solution-block s2">
+          <div class="solution-block-label">Layer 2 · Execution</div>
+          <div class="solution-block-title">Expert Councils</div>
+          <div class="solution-block-body">Independent, technically credentialed bodies manage complex domains — monetary policy, public health, infrastructure, energy. They determine the "how" within democratic mandates.</div>
+        </div>
+        <div class="solution-block s3">
+          <div class="solution-block-label">Layer 3 · Coordination</div>
+          <div class="solution-block-title">Strategic Executive</div>
+          <div class="solution-block-body">A reformed executive branch coordinates across councils, manages long-term planning, and ensures coherence across government. Accountable to legislature and public.</div>
+        </div>
+      </div>
+      <div class="solution-text">
+        <h3>Why This Works</h3>
+        <p>Modern liberal democracies already apply this model successfully in certain domains. Central banks set monetary policy independently. Courts interpret law without electoral pressure. The FDA approves drugs on scientific merit.</p>
+        <p>The reform extends this proven logic to more domains where technical complexity outpaces electoral timescales — infrastructure, technology regulation, climate adaptation, and public health — while keeping democratic oversight intact.</p>
+        <p>This is not technocracy. Democracy retains the power to set goals, override councils, and remove executives. It is democracy modernized — not replaced.</p>
+        <a href="#how" class="btn-primary">See How It Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PRINCIPLES ═══════════════════════════════ -->
+<section id="principles">
+  <div class="section-inner">
+    <div class="section-label">Our Principles</div>
+    <h2 class="section-title" style="color:#fff;">What We Stand For</h2>
+    <div class="principles-grid">
+      <div class="principle-item">
+        <span class="principle-num">01</span>
+        <span class="principle-icon">⚡</span>
+        <div class="principle-name">Efficient Governance</div>
+        <div class="principle-desc">Government should deliver maximum value per dollar spent. Waste, duplication, and bureaucratic inertia are not acceptable features — they are failures to be fixed.</div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">02</span>
+        <span class="principle-icon">🗳️</span>
+        <div class="principle-name">Democratic Legitimacy</div>
+        <div class="principle-desc">All authority flows from the consent of the governed. Reform must strengthen democracy's ability to express the public will, not circumvent it.</div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">03</span>
+        <span class="principle-icon">🔬</span>
+        <div class="principle-name">Expert Execution</div>
+        <div class="principle-desc">Complex technical decisions should be made by people with the relevant knowledge and accountability — not by those optimizing for the next election cycle.</div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">04</span>
+        <span class="principle-icon">🗽</span>
+        <div class="principle-name">Individual Freedom</div>
+        <div class="principle-desc">A more capable state is not a more intrusive state. Institutional reform should expand individual liberty by reducing bureaucratic friction and arbitrary power.</div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">05</span>
+        <span class="principle-icon">🔭</span>
+        <div class="principle-name">Future-Oriented Policy</div>
+        <div class="principle-desc">Good governance must account for consequences beyond the electoral cycle — on climate, technology, debt, and national capability. The future deserves a seat at the table.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three Layers.<br>One System.</h2>
+    <p class="section-body">A clear division of responsibilities between democratic legitimacy, expert execution, and strategic coordination — each reinforcing the others.</p>
+    <div class="how-grid">
+      <div class="how-block">
+        <div class="how-num">01</div>
+        <div class="how-subtitle">Legitimacy &amp; Direction</div>
+        <div class="how-title">Parliament &amp; Legislature</div>
+        <div class="how-body">Elected representatives retain supreme authority. They set national goals, approve or revoke council mandates, control the budget, and hold the executive accountable. All institutional authority is delegated from, and revocable by, the democratic legislature.</div>
+        <div class="how-tags">
+          <span class="how-tag">Elected</span>
+          <span class="how-tag">Supreme Authority</span>
+          <span class="how-tag">Budget Control</span>
+          <span class="how-tag">Mandate Setting</span>
+        </div>
+      </div>
+      <div class="how-block">
+        <div class="how-num">02</div>
+        <div class="how-subtitle">Expertise &amp; Execution</div>
+        <div class="how-title">Expert Councils</div>
+        <div class="how-body">Independent expert bodies manage specific technical domains within democratic mandates. Modeled on the Federal Reserve and FDA, they are staffed by domain experts, operate transparently, publish their reasoning, and are subject to legislative review and removal.</div>
+        <div class="how-tags">
+          <span class="how-tag">Technically Credentialed</span>
+          <span class="how-tag">Transparent</span>
+          <span class="how-tag">Reviewable</span>
+          <span class="how-tag">Domain-Specific</span>
+        </div>
+      </div>
+      <div class="how-block">
+        <div class="how-num">03</div>
+        <div class="how-subtitle">Coordination &amp; Long-Term Planning</div>
+        <div class="how-title">Strategic Executive</div>
+        <div class="how-body">A reformed executive coordinates across all councils, manages cross-domain strategy, and ensures long-horizon planning. Unlike current administrations, it is structurally insulated from short-term electoral incentives while remaining fully accountable to the legislature.</div>
+        <div class="how-tags">
+          <span class="how-tag">Cross-Domain</span>
+          <span class="how-tag">Long-Horizon</span>
+          <span class="how-tag">Coordinating</span>
+          <span class="how-tag">Accountable</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ JOIN ═══════════════════════════════ -->
+<section id="join">
+  <div class="section-inner">
+    <div class="join-inner">
+      <div class="section-label">Join the Movement</div>
+      <h2 class="section-title">Be Part of Building the Future</h2>
+      <p class="section-body">Advance America is growing. Join thousands of citizens, policy professionals, and reform advocates who believe government can — and must — do better.</p>
+      <div class="join-form">
+        <div class="join-row">
+          <input type="text" class="join-input" placeholder="First Name" />
+          <input type="text" class="join-input" placeholder="Last Name" />
+        </div>
+        <input type="email" class="join-input" placeholder="Email Address" />
+        <button class="join-submit" onclick="handleJoin(this)">Join the Movement →</button>
+      </div>
+      <div class="join-disclaimer">By joining, you agree to receive movement updates. No spam. Unsubscribe anytime. Your data will never be sold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-logo">Advance <span>America</span></div>
+  <ul class="footer-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#solution">The Solution</a></li>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#join">Join</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Advance America. All rights reserved.</div>
+</footer>
+
+<script>
+  function filterWaste(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.waste-row').forEach(row => {
+      if (cat === 'all' || row.dataset.cat === cat) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  function handleJoin(btn) {
+    const inputs = btn.closest('.join-form').querySelectorAll('input');
+    let valid = true;
+    inputs.forEach(i => {
+      if (!i.value.trim()) { i.style.borderColor = '#C8102E'; valid = false; }
+      else { i.style.borderColor = ''; }
+    });
+    if (!valid) return;
+    btn.textContent = '✓ You\'re on the list';
+    btn.style.background = '#2a7a2a';
+    btn.disabled = true;
+  }
+
+  // Subtle scroll animation for cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.problem-card, .markup-card, .waste-row, .principle-item, .how-block').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
