@@ -1,1227 +1,620 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advance America — Reform Democracy Build the Future.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --red:      #C8102E;
-      --red-dk:   #9a0b22;
-      --red-lt:   #fdf1f3;
-      --black:    #0d0d0d;
-      --ink:      #1c1c1c;
-      --mid:      #4a4a4a;
-      --muted:    #888;
-      --border:   #e5e5e5;
-      --bg:       #fff;
-      --off:      #f8f8f7;
-      --cool:     #f2f2f0;
-      --serif:    'Cormorant Garamond', Georgia, serif;
-      --sans:     'Outfit', sans-serif;
-      --mono:     'DM Mono', monospace;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--black);
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-    button { font-family: var(--sans); cursor: pointer; border: none; background: none; }
-    a { text-decoration: none; color: inherit; }
-
-    /* ── PAGE SWITCHING ── */
-    .page { display: none; min-height: 100vh; }
-    .page.active { display: block; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-      height: 66px;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1180px; margin: 0 auto;
-      padding: 0 36px; height: 66px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-wordmark {
-      font-family: var(--serif);
-      font-size: 1.12rem; font-weight: 700;
-      letter-spacing: 0.01em; color: var(--black);
-      cursor: pointer; user-select: none;
-    }
-    .nav-wordmark span { color: var(--red); }
-    .nav-links {
-      display: flex; align-items: center; gap: 4px; list-style: none;
-    }
-    .nav-links button {
-      font-size: 0.8rem; font-weight: 500;
-      padding: 7px 13px; border-radius: 4px;
-      color: var(--mid); transition: color 0.15s, background 0.15s;
-    }
-    .nav-links button:hover { color: var(--black); background: var(--cool); }
-    .nav-links button.nav-active { color: var(--black); background: var(--cool); }
-    .nav-cta-btn {
-      background: var(--red) !important;
-      color: #fff !important;
-      padding: 7px 18px !important;
-      border-radius: 4px;
-    }
-    .nav-cta-btn:hover { background: var(--red-dk) !important; }
-
-    .burger {
-      display: none; flex-direction: column; gap: 5px;
-      padding: 6px; background: none; border: none;
-    }
-    .burger span {
-      display: block; width: 20px; height: 2px;
-      background: var(--black); border-radius: 2px;
-    }
-
-    .mob-menu {
-      display: none; position: fixed;
-      top: 66px; left: 0; right: 0; z-index: 998;
-      background: #fff; border-bottom: 1px solid var(--border);
-      padding: 16px 24px 20px;
-      flex-direction: column; gap: 4px;
-    }
-    .mob-menu.open { display: flex; }
-    .mob-menu button {
-      font-size: 0.88rem; font-weight: 500;
-      padding: 11px 14px; border-radius: 4px;
-      color: var(--mid); text-align: left;
-      transition: background 0.15s;
-    }
-    .mob-menu button:hover { background: var(--cool); color: var(--black); }
-    .mob-cta {
-      background: var(--red) !important;
-      color: #fff !important; margin-top: 6px;
-    }
-
-    /* ── SHARED ── */
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 36px; }
-    .wrap-md { max-width: 800px; margin: 0 auto; padding: 0 36px; }
-    .wrap-sm { max-width: 620px; margin: 0 auto; padding: 0 36px; }
-    .pt { padding-top: 66px; }
-    .sec { padding: 96px 36px; }
-    .sec-sm { padding: 72px 36px; }
-
-    .label {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--red); margin-bottom: 16px;
-    }
-    .label::before { content: ''; width: 18px; height: 2px; background: var(--red); }
-
-    .h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 6vw, 5.5rem);
-      font-weight: 700; line-height: 1.04;
-      letter-spacing: -0.025em; color: var(--black);
-    }
-    .h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-      font-weight: 700; line-height: 1.12;
-      letter-spacing: -0.02em; color: var(--black);
-    }
-    .h3 {
-      font-family: var(--serif);
-      font-size: 1.25rem; font-weight: 700;
-      line-height: 1.2; color: var(--black);
-    }
-    .lead {
-      font-size: 1.05rem; font-weight: 300;
-      color: var(--mid); line-height: 1.82;
-    }
-    .body-text {
-      font-size: 0.94rem; color: var(--mid); line-height: 1.82;
-    }
-    .rule { height: 1px; background: var(--border); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 13px 28px; border-radius: 3px;
-      font-size: 0.8rem; font-weight: 600;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      transition: all 0.18s; cursor: pointer;
-    }
-    .btn-dark { background: var(--black); color: #fff; border: 1.5px solid var(--black); }
-    .btn-dark:hover { background: var(--ink); }
-    .btn-ghost { background: transparent; color: var(--black); border: 1.5px solid var(--black); }
-    .btn-ghost:hover { background: var(--black); color: #fff; }
-    .btn-red { background: var(--red); color: #fff; border: 1.5px solid var(--red); }
-    .btn-red:hover { background: var(--red-dk); border-color: var(--red-dk); }
-
-    /* ════════════════════════════════════════
-       HOME PAGE
-    ════════════════════════════════════════ */
-
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      background: var(--bg);
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 68px 68px; opacity: 0.3;
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      max-width: 1180px; margin: 0 auto;
-      padding: 130px 36px 160px;
-    }
-    .hero-h {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 7.5vw, 6.2rem);
-      font-weight: 700; line-height: 1.03;
-      letter-spacing: -0.03em; color: var(--black);
-      max-width: 860px; margin-bottom: 28px;
-    }
-    .hero-h em { font-style: normal; color: var(--red); }
-    .hero-sub {
-      font-size: 1.1rem; font-weight: 300;
-      color: var(--mid); max-width: 560px;
-      line-height: 1.82; margin-bottom: 48px;
-    }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-bar {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: var(--black);
-      display: flex; justify-content: center;
-      gap: 72px; padding: 20px 36px; flex-wrap: wrap;
-    }
-    .hstat { text-align: center; }
-    .hstat-n {
-      font-family: var(--serif);
-      font-size: 1.85rem; font-weight: 700;
-      color: #fff; line-height: 1;
-    }
-    .hstat-n em { color: var(--red); font-style: normal; }
-    .hstat-l {
-      font-size: 0.62rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); margin-top: 4px;
-    }
-
-    /* Problem */
-    .prob-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 20px; margin-top: 52px;
-    }
-    .prob-card {
-      background: #fff; border: 1px solid var(--border);
-      border-left: 3px solid var(--red);
-      border-radius: 6px; padding: 34px;
-      transition: box-shadow 0.2s;
-    }
-    .prob-card:hover { box-shadow: 0 8px 36px rgba(0,0,0,0.06); }
-    .prob-n {
-      font-family: var(--mono); font-size: 0.6rem;
-      color: var(--red); letter-spacing: 0.1em; margin-bottom: 13px;
-    }
-    .prob-card p { font-size: 0.88rem; color: var(--mid); line-height: 1.78; margin-top: 10px; }
-
-    /* Waste */
-    .waste-top {
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 36px; align-items: end; margin-bottom: 48px;
-    }
-    .waste-box {
-      background: var(--black); border-radius: 6px;
-      padding: 26px 30px; text-align: right; white-space: nowrap;
-    }
-    .waste-box-l {
-      font-size: 0.6rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); margin-bottom: 5px;
-    }
-    .waste-box-n {
-      font-family: var(--serif); font-size: 2.2rem;
-      font-weight: 700; color: var(--red); line-height: 1;
-    }
-    .waste-box-s { font-size: 0.68rem; color: rgba(255,255,255,0.25); margin-top: 5px; }
-
-    .mk-label {
-      font-size: 0.63rem; font-weight: 600;
-      letter-spacing: 0.13em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 16px;
-    }
-    .mk-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      gap: 12px; margin-bottom: 48px;
-    }
-    .mk-card {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 6px; padding: 22px 16px; text-align: center;
-      transition: box-shadow 0.18s, transform 0.18s;
-    }
-    .mk-card:hover {
-      box-shadow: 0 6px 24px rgba(200,16,46,0.1);
-      transform: translateY(-2px);
-    }
-    .mk-pct {
-      font-family: var(--serif); font-size: 2rem;
-      font-weight: 700; color: var(--red); line-height: 1.1; margin-bottom: 7px;
-    }
-    .mk-name { font-size: 0.74rem; font-weight: 600; color: var(--black); line-height: 1.35; margin-bottom: 5px; }
-    .mk-price { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); }
-
-    .filter-row {
-      display: flex; align-items: center; gap: 7px;
-      margin-bottom: 18px; flex-wrap: wrap;
-    }
-    .filter-lbl {
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); margin-right: 3px;
-    }
-    .f-btn {
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      padding: 6px 13px; border: 1.5px solid var(--border);
-      border-radius: 3px; background: none; color: var(--muted);
-      transition: all 0.14s;
-    }
-    .f-btn:hover, .f-btn.on {
-      background: var(--black); color: #fff; border-color: var(--black);
-    }
-
-    .wr-list { display: flex; flex-direction: column; gap: 9px; }
-    .wr {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 6px; padding: 20px 24px;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      align-items: center; gap: 18px;
-      transition: box-shadow 0.16s;
-    }
-    .wr:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.05); }
-    .wr.bad { border-left: 3px solid var(--red); }
-    .wr-badge {
-      display: inline-block; font-size: 0.56rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 2px 7px; border-radius: 2px;
-      background: var(--red-lt); color: var(--red); margin-bottom: 5px;
-    }
-    .wr-name { font-size: 0.88rem; font-weight: 600; color: var(--black); margin-bottom: 3px; }
-    .wr-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.55; }
-    .wr-src { font-size: 0.62rem; color: var(--muted); margin-top: 3px; }
-    .wp { text-align: center; }
-    .wp-l { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-    .wp-g { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: var(--red); }
-    .wp-r { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: #2a7a3a; }
-    .wm { text-align: right; }
-    .wm-n { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; color: var(--red); }
-    .wm-l { font-size: 0.58rem; color: var(--muted); }
-
-    /* Solution */
-    .sol-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 68px; align-items: center; margin-top: 56px;
-    }
-    .sol-blocks { display: flex; flex-direction: column; gap: 9px; }
-    .sol-b { border-radius: 6px; padding: 24px 28px; }
-    .sol-b.b1 { background: var(--black); color: #fff; }
-    .sol-b.b2 { background: var(--red); color: #fff; }
-    .sol-b.b3 { background: #fff; border: 1.5px solid var(--border); }
-    .sol-tag {
-      font-size: 0.58rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      opacity: 0.5; margin-bottom: 5px;
-    }
-    .sol-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 7px; }
-    .sol-body { font-size: 0.82rem; line-height: 1.7; opacity: 0.78; }
-    .sol-info p { font-size: 0.92rem; color: var(--mid); line-height: 1.82; margin-bottom: 20px; }
-
-    /* Principles */
-    .prin-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr);
-      gap: 1px; background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 6px; overflow: hidden; margin-top: 52px;
-    }
-    .prin {
-      background: var(--black); padding: 36px 24px;
-      transition: background 0.18s;
-    }
-    .prin:hover { background: #161616; }
-    .prin-n { font-family: var(--mono); font-size: 0.58rem; color: var(--red); letter-spacing: 0.1em; margin-bottom: 14px; }
-    .prin-icon { font-size: 1.2rem; margin-bottom: 14px; display: block; }
-    .prin-name { font-family: var(--serif); font-size: 0.98rem; font-weight: 700; color: #fff; margin-bottom: 9px; }
-    .prin-desc { font-size: 0.76rem; color: rgba(255,255,255,0.36); line-height: 1.65; }
-
-    /* How */
-    .how-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; background: var(--border);
-      border-radius: 6px; overflow: hidden; margin-top: 52px;
-    }
-    .how-b { background: #fff; padding: 46px 34px; }
-    .how-n { font-family: var(--serif); font-size: 3.2rem; font-weight: 700; color: var(--red-lt); line-height: 1; margin-bottom: 13px; }
-    .how-sub { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 7px; }
-    .how-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 11px; }
-    .how-body { font-size: 0.86rem; color: var(--mid); line-height: 1.78; }
-    .how-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 16px; }
-    .how-tag { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; background: var(--cool); color: var(--mid); }
-
-    /* Join */
-    .join-inner { max-width: 540px; margin: 0 auto; text-align: center; }
-    .join-form { display: flex; flex-direction: column; gap: 11px; margin-top: 36px; }
-    .join-row { display: flex; gap: 11px; }
-    .j-input {
-      flex: 1; padding: 14px 16px;
-      font-family: var(--sans); font-size: 0.88rem;
-      border: 1.5px solid var(--border); border-radius: 4px;
-      background: #fff; color: var(--black); outline: none;
-      transition: border-color 0.16s;
-    }
-    .j-input:focus { border-color: var(--black); }
-    .j-input::placeholder { color: var(--muted); }
-    .j-submit {
-      width: 100%; padding: 16px;
-      font-family: var(--sans); font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      background: var(--red); color: #fff; border: none;
-      border-radius: 4px; transition: background 0.18s;
-    }
-    .j-submit:hover { background: var(--red-dk); }
-    .j-note { font-size: 0.68rem; color: var(--muted); margin-top: 9px; }
-
-    /* Footer */
-    footer {
-      background: var(--black); padding: 40px 36px;
-      display: flex; align-items: center;
-      justify-content: space-between; flex-wrap: wrap; gap: 18px;
-    }
-    .foot-logo { font-family: var(--serif); font-size: 0.98rem; font-weight: 700; color: #fff; }
-    .foot-logo span { color: var(--red); }
-    .foot-links { display: flex; gap: 20px; list-style: none; }
-    .foot-links button {
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em;
-      text-transform: uppercase; color: rgba(255,255,255,0.28);
-      background: none; border: none; transition: color 0.16s;
-    }
-    .foot-links button:hover { color: #fff; }
-    .foot-copy { font-size: 0.66rem; color: rgba(255,255,255,0.18); }
-
-    /* ════════════════════════════════════════
-       THEORY PAGE
-    ════════════════════════════════════════ */
-    .th-hero {
-      background: var(--black);
-      padding: 120px 36px 76px; position: relative; overflow: hidden;
-    }
-    .th-hero::before {
-      content: ''; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(200,16,46,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(200,16,46,0.05) 1px, transparent 1px);
-      background-size: 56px 56px;
-    }
-    .th-hero-in { position: relative; z-index: 2; max-width: 760px; }
-    .th-label {
-      font-size: 0.63rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--red);
-      display: flex; align-items: center; gap: 9px; margin-bottom: 18px;
-    }
-    .th-label::before { content: ''; width: 18px; height: 2px; background: var(--red); }
-    .th-h {
-      font-family: var(--serif);
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-      font-weight: 700; line-height: 1.08;
-      letter-spacing: -0.022em; color: #fff; margin-bottom: 20px;
-    }
-    .th-sub {
-      font-size: 1rem; font-weight: 300;
-      color: rgba(255,255,255,0.42); line-height: 1.8; max-width: 580px;
-    }
-
-    /* Theory tab bar */
-    .th-tabs {
-      background: var(--off); border-bottom: 1px solid var(--border);
-      position: sticky; top: 66px; z-index: 50; overflow-x: auto;
-    }
-    .th-tabs-in {
-      max-width: 1180px; margin: 0 auto; padding: 0 36px;
-      display: flex; gap: 0; white-space: nowrap;
-    }
-    .th-tab {
-      padding: 17px 22px; font-size: 0.76rem; font-weight: 600;
-      letter-spacing: 0.04em; color: var(--muted);
-      border-bottom: 2px solid transparent;
-      background: none;
-      border-top: none; border-left: none; border-right: none;
-      transition: color 0.16s, border-color 0.16s;
-      white-space: nowrap;
-    }
-    .th-tab:hover { color: var(--black); }
-    .th-tab.ton { color: var(--red); border-bottom-color: var(--red); }
-
-    /* Theory panels */
-    .th-panel { display: none; }
-    .th-panel.pon { display: block; }
-
-    .th-body {
-      max-width: 740px; margin: 0 auto; padding: 68px 36px;
-    }
-    .th-body h2 {
-      font-family: var(--serif); font-size: 1.9rem; font-weight: 700;
-      line-height: 1.14; letter-spacing: -0.018em;
-      color: var(--black); margin: 48px 0 16px;
-    }
-    .th-body h2:first-child { margin-top: 0; }
-    .th-body h3 {
-      font-family: var(--serif); font-size: 1.22rem; font-weight: 700;
-      color: var(--black); margin: 32px 0 11px;
-    }
-    .th-body p {
-      font-size: 0.94rem; color: var(--mid);
-      line-height: 1.86; margin-bottom: 18px;
-    }
-    .th-body ul {
-      list-style: none; margin: 14px 0 18px; padding: 0;
-    }
-    .th-body ul li {
-      font-size: 0.92rem; color: var(--mid); line-height: 1.8;
-      padding: 9px 0 9px 22px; position: relative;
-      border-bottom: 1px solid var(--border);
-    }
-    .th-body ul li::before {
-      content: ''; position: absolute; left: 0; top: 20px;
-      width: 8px; height: 2px; background: var(--red);
-    }
-    .th-body ul li:last-child { border-bottom: none; }
-    .th-pull {
-      background: var(--red-lt); border-left: 3px solid var(--red);
-      border-radius: 0 5px 5px 0; padding: 20px 24px; margin: 26px 0;
-      font-size: 0.94rem; color: var(--ink); line-height: 1.78;
-      font-style: italic;
-    }
-    .th-grid2 {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 14px; margin: 22px 0;
-    }
-    .th-card {
-      background: var(--off); border: 1px solid var(--border);
-      border-radius: 6px; padding: 24px 26px;
-    }
-    .th-card h4 {
-      font-family: var(--serif); font-size: 1.05rem;
-      font-weight: 700; color: var(--black); margin-bottom: 9px;
-    }
-    .th-card p { font-size: 0.86rem; color: var(--mid); line-height: 1.74; margin-bottom: 0; }
-    .th-num {
-      display: flex; align-items: baseline; gap: 11px; margin: 26px 0;
-    }
-    .th-num .n {
-      font-family: var(--serif); font-size: 2.8rem;
-      font-weight: 700; color: var(--red); line-height: 1; white-space: nowrap;
-    }
-    .th-num .t { font-size: 0.88rem; color: var(--mid); line-height: 1.72; }
-
-    /* ════════════════════════════════════════
-       ABOUT PAGE
-    ════════════════════════════════════════ */
-    .ab-hero {
-      background: var(--off); padding: 120px 36px 76px;
-      border-bottom: 1px solid var(--border);
-    }
-    .ab-body { padding: 76px 36px; }
-    .ab-sect { max-width: 700px; margin: 0 auto 52px; }
-    .ab-sect h2 { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; color: var(--black); margin-bottom: 14px; }
-    .ab-sect p { font-size: 0.94rem; color: var(--mid); line-height: 1.84; margin-bottom: 16px; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .nav-links { display: none; }
-      .burger { display: flex; }
-      .sec { padding: 68px 24px; }
-      .sec-sm { padding: 52px 24px; }
-      .hero-content { padding: 110px 24px 150px; }
-      .prob-grid { grid-template-columns: 1fr; }
-      .mk-grid { grid-template-columns: 1fr 1fr; }
-      .waste-top { grid-template-columns: 1fr; }
-      .sol-grid { grid-template-columns: 1fr; gap: 40px; }
-      .prin-grid { grid-template-columns: 1fr 1fr; }
-      .how-grid { grid-template-columns: 1fr; }
-      .join-row { flex-direction: column; }
-      footer { flex-direction: column; gap: 14px; }
-      .hero-bar { gap: 28px; padding: 16px 24px; }
-      .wr { grid-template-columns: 1fr 1fr; }
-      .wm { grid-column: 1 / -1; text-align: left; }
-      .th-grid2 { grid-template-columns: 1fr; }
-      .th-body { padding: 48px 24px; }
-      .wrap { padding: 0 24px; }
-      .wrap-md { padding: 0 24px; }
-      .wrap-sm { padding: 0 24px; }
-    }
-    @media (max-width: 520px) {
-      .mk-grid { grid-template-columns: 1fr 1fr; }
-      .prin-grid { grid-template-columns: 1fr; }
-      .hero-h { font-size: 2.6rem; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advance America — Reform Democracy. Build the Future.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:      #C8102E;
+      --red-dk:   #9a0b22;
+      --red-lt:   #fdf1f3;
+      --black:    #0d0d0d;
+      --ink:      #1c1c1c;
+      --mid:      #4a4a4a;
+      --muted:    #888;
+      --border:   #e5e5e5;
+      --bg:       #fff;
+      --off:      #f8f8f7;
+      --cool:     #f2f2f0;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'Outfit', sans-serif;
+      --mono:     'DM Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--black); line-height: 1.65; overflow-x: hidden; }
+    button { font-family: var(--sans); cursor: pointer; border: none; background: none; }
+    a { text-decoration: none; color: inherit; }
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 66px; background: rgba(255,255,255,0.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1180px; margin: 0 auto; padding: 0 36px; height: 66px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-wordmark { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; letter-spacing: 0.01em; color: var(--black); cursor: pointer; user-select: none; }
+    .nav-wordmark span { color: var(--red); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links button { font-size: 0.8rem; font-weight: 500; padding: 7px 13px; border-radius: 4px; color: var(--mid); transition: color 0.15s, background 0.15s; }
+    .nav-links button:hover { color: var(--black); background: var(--cool); }
+    .nav-cta-btn { background: var(--red) !important; color: #fff !important; padding: 7px 18px !important; border-radius: 4px; }
+    .nav-cta-btn:hover { background: var(--red-dk) !important; }
+    .burger { display: none; flex-direction: column; gap: 5px; padding: 6px; background: none; border: none; }
+    .burger span { display: block; width: 20px; height: 2px; background: var(--black); border-radius: 2px; }
+    .mob-menu { display: none; position: fixed; top: 66px; left: 0; right: 0; z-index: 998; background: #fff; border-bottom: 1px solid var(--border); padding: 16px 24px 20px; flex-direction: column; gap: 4px; }
+    .mob-menu.open { display: flex; }
+    .mob-menu button { font-size: 0.88rem; font-weight: 500; padding: 11px 14px; border-radius: 4px; color: var(--mid); text-align: left; transition: background 0.15s; }
+    .mob-menu button:hover { background: var(--cool); color: var(--black); }
+    .mob-cta { background: var(--red) !important; color: #fff !important; margin-top: 6px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 36px; }
+    .pt { padding-top: 66px; }
+    .sec { padding: 96px 36px; }
+    .label { display: inline-flex; align-items: center; gap: 10px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+    .label::before { content: ''; width: 18px; height: 2px; background: var(--red); }
+    .h1 { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.025em; color: var(--black); }
+    .h2 { font-family: var(--serif); font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; color: var(--black); }
+    .h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; line-height: 1.2; color: var(--black); }
+    .lead { font-size: 1.05rem; font-weight: 300; color: var(--mid); line-height: 1.82; }
+    .rule { height: 1px; background: var(--border); }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 13px 28px; border-radius: 3px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.18s; cursor: pointer; }
+    .btn-dark { background: var(--black); color: #fff; border: 1.5px solid var(--black); }
+    .btn-dark:hover { background: var(--ink); }
+    .btn-ghost { background: transparent; color: var(--black); border: 1.5px solid var(--black); }
+    .btn-ghost:hover { background: var(--black); color: #fff; }
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--bg); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 68px 68px; opacity: 0.3; }
+    .hero-content { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; padding: 130px 36px 160px; }
+    .hero-h { font-family: var(--serif); font-size: clamp(3rem, 7.5vw, 6.2rem); font-weight: 700; line-height: 1.03; letter-spacing: -0.03em; color: var(--black); max-width: 860px; margin-bottom: 28px; }
+    .hero-h em { font-style: normal; color: var(--red); }
+    .hero-sub { font-size: 1.1rem; font-weight: 300; color: var(--mid); max-width: 560px; line-height: 1.82; margin-bottom: 48px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-bar { position: absolute; bottom: 0; left: 0; right: 0; background: var(--black); display: flex; justify-content: center; gap: 72px; padding: 20px 36px; flex-wrap: wrap; }
+    .hstat { text-align: center; }
+    .hstat-n { font-family: var(--serif); font-size: 1.85rem; font-weight: 700; color: #fff; line-height: 1; }
+    .hstat-n em { color: var(--red); font-style: normal; }
+    .hstat-l { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-top: 4px; }
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 52px; }
+    .prob-card { background: #fff; border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 6px; padding: 34px; transition: box-shadow 0.2s; }
+    .prob-card:hover { box-shadow: 0 8px 36px rgba(0,0,0,0.06); }
+    .prob-n { font-family: var(--mono); font-size: 0.6rem; color: var(--red); letter-spacing: 0.1em; margin-bottom: 13px; }
+    .prob-card p { font-size: 0.88rem; color: var(--mid); line-height: 1.78; margin-top: 10px; }
+    .waste-top { display: grid; grid-template-columns: 1fr auto; gap: 36px; align-items: end; margin-bottom: 48px; }
+    .waste-box { background: var(--black); border-radius: 6px; padding: 26px 30px; text-align: right; white-space: nowrap; }
+    .waste-box-l { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 5px; }
+    .waste-box-n { font-family: var(--serif); font-size: 2.2rem; font-weight: 700; color: var(--red); line-height: 1; }
+    .waste-box-s { font-size: 0.68rem; color: rgba(255,255,255,0.25); margin-top: 5px; }
+    .mk-label { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .mk-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 48px; }
+    .mk-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 22px 16px; text-align: center; transition: box-shadow 0.18s, transform 0.18s; }
+    .mk-card:hover { box-shadow: 0 6px 24px rgba(200,16,46,0.1); transform: translateY(-2px); }
+    .mk-pct { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--red); line-height: 1.1; margin-bottom: 7px; }
+    .mk-name { font-size: 0.74rem; font-weight: 600; color: var(--black); line-height: 1.35; margin-bottom: 5px; }
+    .mk-price { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); }
+    .filter-row { display: flex; align-items: center; gap: 7px; margin-bottom: 18px; flex-wrap: wrap; }
+    .filter-lbl { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-right: 3px; }
+    .f-btn { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 6px 13px; border: 1.5px solid var(--border); border-radius: 3px; background: none; color: var(--muted); transition: all 0.14s; }
+    .f-btn:hover, .f-btn.on { background: var(--black); color: #fff; border-color: var(--black); }
+    .wr-list { display: flex; flex-direction: column; gap: 9px; }
+    .wr { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 20px 24px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; align-items: center; gap: 18px; transition: box-shadow 0.16s; }
+    .wr:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.05); }
+    .wr.bad { border-left: 3px solid var(--red); }
+    .wr-badge { display: inline-block; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; background: var(--red-lt); color: var(--red); margin-bottom: 5px; }
+    .wr-name { font-size: 0.88rem; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+    .wr-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.55; }
+    .wr-src { font-size: 0.62rem; color: var(--muted); margin-top: 3px; }
+    .wp { text-align: center; }
+    .wp-l { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+    .wp-g { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: var(--red); }
+    .wp-r { font-family: var(--mono); font-size: 1rem; font-weight: 500; color: #2a7a3a; }
+    .wm { text-align: right; }
+    .wm-n { font-family: var(--serif); font-size: 1.45rem; font-weight: 700; color: var(--red); }
+    .wm-l { font-size: 0.58rem; color: var(--muted); }
+    .sol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 68px; align-items: center; margin-top: 56px; }
+    .sol-blocks { display: flex; flex-direction: column; gap: 9px; }
+    .sol-b { border-radius: 6px; padding: 24px 28px; }
+    .sol-b.b1 { background: var(--black); color: #fff; }
+    .sol-b.b2 { background: var(--red); color: #fff; }
+    .sol-b.b3 { background: #fff; border: 1.5px solid var(--border); }
+    .sol-tag { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.5; margin-bottom: 5px; }
+    .sol-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 7px; }
+    .sol-body { font-size: 0.82rem; line-height: 1.7; opacity: 0.78; }
+    .sol-info p { font-size: 0.92rem; color: var(--mid); line-height: 1.82; margin-bottom: 20px; }
+    .prin-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; overflow: hidden; margin-top: 52px; }
+    .prin { background: var(--black); padding: 36px 24px; transition: background 0.18s; }
+    .prin:hover { background: #161616; }
+    .prin-n { font-family: var(--mono); font-size: 0.58rem; color: var(--red); letter-spacing: 0.1em; margin-bottom: 14px; }
+    .prin-icon { font-size: 1.2rem; margin-bottom: 14px; display: block; }
+    .prin-name { font-family: var(--serif); font-size: 0.98rem; font-weight: 700; color: #fff; margin-bottom: 9px; }
+    .prin-desc { font-size: 0.76rem; color: rgba(255,255,255,0.36); line-height: 1.65; }
+    .join-inner { max-width: 540px; margin: 0 auto; text-align: center; }
+    .join-form { display: flex; flex-direction: column; gap: 11px; margin-top: 36px; }
+    .join-row { display: flex; gap: 11px; }
+    .j-input { flex: 1; padding: 14px 16px; font-family: var(--sans); font-size: 0.88rem; border: 1.5px solid var(--border); border-radius: 4px; background: #fff; color: var(--black); outline: none; transition: border-color 0.16s; }
+    .j-input:focus { border-color: var(--black); }
+    .j-input::placeholder { color: var(--muted); }
+    .j-submit { width: 100%; padding: 16px; font-family: var(--sans); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: var(--red); color: #fff; border: none; border-radius: 4px; transition: background 0.18s; }
+    .j-submit:hover { background: var(--red-dk); }
+    .j-note { font-size: 0.68rem; color: var(--muted); margin-top: 9px; }
+    footer { background: var(--black); padding: 40px 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+    .foot-logo { font-family: var(--serif); font-size: 0.98rem; font-weight: 700; color: #fff; }
+    .foot-logo span { color: var(--red); }
+    .foot-links { display: flex; gap: 20px; list-style: none; }
+    .foot-links button { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.28); background: none; border: none; transition: color 0.16s; }
+    .foot-links button:hover { color: #fff; }
+    .foot-copy { font-size: 0.66rem; color: rgba(255,255,255,0.18); }
+    .th-hero { background: var(--black); padding: 120px 36px 76px; position: relative; overflow: hidden; }
+    .th-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(200,16,46,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(200,16,46,0.05) 1px, transparent 1px); background-size: 56px 56px; }
+    .th-hero-in { position: relative; z-index: 2; max-width: 760px; }
+    .th-label { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
+    .th-label::before { content: ''; width: 18px; height: 2px; background: var(--red); }
+    .th-h { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.022em; color: #fff; margin-bottom: 20px; }
+    .th-sub { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.42); line-height: 1.8; max-width: 580px; }
+    .th-tabs { background: var(--off); border-bottom: 1px solid var(--border); position: sticky; top: 66px; z-index: 50; overflow-x: auto; }
+    .th-tabs-in { max-width: 1180px; margin: 0 auto; padding: 0 36px; display: flex; gap: 0; white-space: nowrap; }
+    .th-tab { padding: 17px 22px; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; color: var(--muted); border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; transition: color 0.16s, border-color 0.16s; white-space: nowrap; }
+    .th-tab:hover { color: var(--black); }
+    .th-tab.ton { color: var(--red); border-bottom-color: var(--red); }
+    .th-panel { display: none; }
+    .th-panel.pon { display: block; }
+    .th-body { max-width: 740px; margin: 0 auto; padding: 68px 36px; }
+    .th-body h2 { font-family: var(--serif); font-size: 1.9rem; font-weight: 700; line-height: 1.14; letter-spacing: -0.018em; color: var(--black); margin: 48px 0 16px; }
+    .th-body h2:first-child { margin-top: 0; }
+    .th-body h3 { font-family: var(--serif); font-size: 1.22rem; font-weight: 700; color: var(--black); margin: 32px 0 11px; }
+    .th-body p { font-size: 0.94rem; color: var(--mid); line-height: 1.86; margin-bottom: 18px; }
+    .th-body ul { list-style: none; margin: 14px 0 18px; padding: 0; }
+    .th-body ul li { font-size: 0.92rem; color: var(--mid); line-height: 1.8; padding: 9px 0 9px 22px; position: relative; border-bottom: 1px solid var(--border); }
+    .th-body ul li::before { content: ''; position: absolute; left: 0; top: 20px; width: 8px; height: 2px; background: var(--red); }
+    .th-body ul li:last-child { border-bottom: none; }
+    .th-pull { background: var(--red-lt); border-left: 3px solid var(--red); border-radius: 0 5px 5px 0; padding: 20px 24px; margin: 26px 0; font-size: 0.94rem; color: var(--ink); line-height: 1.78; font-style: italic; }
+    .th-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
+    .th-card { background: var(--off); border: 1px solid var(--border); border-radius: 6px; padding: 24px 26px; }
+    .th-card h4 { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; color: var(--black); margin-bottom: 9px; }
+    .th-card p { font-size: 0.86rem; color: var(--mid); line-height: 1.74; margin-bottom: 0; }
+    .th-num { display: flex; align-items: baseline; gap: 11px; margin: 26px 0; }
+    .th-num .n { font-family: var(--serif); font-size: 2.8rem; font-weight: 700; color: var(--red); line-height: 1; white-space: nowrap; }
+    .th-num .t { font-size: 0.88rem; color: var(--mid); line-height: 1.72; }
+    .ab-hero { background: var(--off); padding: 120px 36px 76px; border-bottom: 1px solid var(--border); }
+    .ab-body { padding: 76px 36px; }
+    .ab-sect { max-width: 700px; margin: 0 auto 52px; }
+    .ab-sect h2 { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; color: var(--black); margin-bottom: 14px; }
+    .ab-sect p { font-size: 0.94rem; color: var(--mid); line-height: 1.84; margin-bottom: 16px; }
+    @media (max-width: 960px) {
+      .nav-links { display: none; } .burger { display: flex; } .sec { padding: 68px 24px; }
+      .hero-content { padding: 110px 24px 150px; } .prob-grid { grid-template-columns: 1fr; }
+      .mk-grid { grid-template-columns: 1fr 1fr; } .waste-top { grid-template-columns: 1fr; }
+      .sol-grid { grid-template-columns: 1fr; gap: 40px; } .prin-grid { grid-template-columns: 1fr 1fr; }
+      .join-row { flex-direction: column; } footer { flex-direction: column; gap: 14px; }
+      .hero-bar { gap: 28px; padding: 16px 24px; } .wr { grid-template-columns: 1fr 1fr; }
+      .wm { grid-column: 1 / -1; text-align: left; } .th-grid2 { grid-template-columns: 1fr; }
+      .th-body { padding: 48px 24px; } .wrap { padding: 0 24px; }
+    }
+    @media (max-width: 520px) { .mk-grid { grid-template-columns: 1fr 1fr; } .prin-grid { grid-template-columns: 1fr; } .hero-h { font-size: 2.6rem; } }
+  </style>
 </head>
 <body>
-
-<!-- ════ NAV ════ -->
 <nav>
-  <div class="nav-inner">
-    <div class="nav-wordmark" onclick="goPage('home')">
-      Advance <span>America</span>
-    </div>
-    <ul class="nav-links">
-      <li><button onclick="goPage('home'); goSec('problem')">The Problem</button></li>
-      <li><button onclick="goPage('home'); goSec('waste')">The Waste</button></li>
-      <li><button onclick="goPage('home'); goSec('solution')">The Solution</button></li>
-      <li><button onclick="goPage('theory')">Our Theory</button></li>
-
-      <li><button onclick="goPage('about')">About</button></li>
-      <li><button class="nav-cta-btn" onclick="goPage('home'); goSec('join')">Join</button></li>
-    </ul>
-    <button class="burger" onclick="toggleMob()" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+  <div class="nav-inner">
+    <div class="nav-wordmark" onclick="goPage('home')">Advance <span>America</span></div>
+    <ul class="nav-links">
+      <li><button onclick="goPage('home'); goSec('problem')">The Problem</button></li>
+      <li><button onclick="goPage('home'); goSec('waste')">The Waste</button></li>
+      <li><button onclick="goPage('home'); goSec('solution')">The Solution</button></li>
+      <li><button onclick="goPage('theory')">Our Theory</button></li>
+      <li><button onclick="goPage('about')">About</button></li>
+      <li><button class="nav-cta-btn" onclick="goPage('home'); goSec('join')">Join</button></li>
+    </ul>
+    <button class="burger" onclick="toggleMob()" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
-
 <div class="mob-menu" id="mobMenu">
-  <button onclick="goPage('home'); closeMob()">Home</button>
-  <button onclick="goPage('home'); goSec('problem'); closeMob()">The Problem</button>
-  <button onclick="goPage('home'); goSec('waste'); closeMob()">The Waste</button>
-  <button onclick="goPage('home'); goSec('solution'); closeMob()">The Solution</button>
-  <button onclick="goPage('theory'); closeMob()">Our Theory</button>
-  <button onclick="goPage('about'); closeMob()">About</button>
-  <button class="mob-cta" onclick="goPage('home'); goSec('join'); closeMob()">Join the Movement</button>
+  <button onclick="goPage('home'); closeMob()">Home</button>
+  <button onclick="goPage('home'); goSec('problem'); closeMob()">The Problem</button>
+  <button onclick="goPage('home'); goSec('waste'); closeMob()">The Waste</button>
+  <button onclick="goPage('home'); goSec('solution'); closeMob()">The Solution</button>
+  <button onclick="goPage('theory'); closeMob()">Our Theory</button>
+  <button onclick="goPage('about'); closeMob()">About</button>
+  <button class="mob-cta" onclick="goPage('home'); goSec('join'); closeMob()">Join the Movement</button>
 </div>
-
-<!-- ════════════════════════════════════════
-     HOME PAGE
-════════════════════════════════════════ -->
 <div class="page active" id="pg-home">
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-content">
-      <div class="label">Political Reform Movement · Est. 2026</div>
-      <h1 class="hero-h">
-        Reform <em>Democracy.</em><br>Build the Future.
-      </h1>
-      <p class="hero-sub">Our institutions were built for a slower world. Today's problems move faster than government can respond. Advance America is building a system designed for the modern age.</p>
-      <div class="hero-btns">
-        <button class="btn btn-dark" onclick="goSec('solution')">Learn the System</button>
-        <button class="btn btn-ghost" onclick="goSec('join')">Join the Movement</button>
-      </div>
-    </div>
-    <div class="hero-bar">
-      <div class="hstat"><div class="hstat-n"><em>$1.7T</em></div><div class="hstat-l">Annual Federal Deficit</div></div>
-      <div class="hstat"><div class="hstat-n"><em>175</em>+</div><div class="hstat-l">Federal Agencies</div></div>
-      <div class="hstat"><div class="hstat-n"><em>$500B</em></div><div class="hstat-l">Estimated Annual Waste</div></div>
-      <div class="hstat"><div class="hstat-n"><em>18%</em></div><div class="hstat-l">Congress Approval Rating</div></div>
-    </div>
-  </section>
-
-  <!-- Problem -->
-  <section class="sec" id="problem" style="background:var(--off);">
-    <div class="wrap">
-      <div class="label">The Problem</div>
-      <h2 class="h2">The System Isn't Broken.<br>It's Outdated.</h2>
-      <p class="lead" style="max-width:620px;margin-top:16px;">American governance was built for a different century. What we're dealing with today isn't a failure of values — it's a failure of design. The world changed. The machine didn't.</p>
-      <div class="prob-grid">
-        <div class="prob-card">
-          <div class="prob-n">01 · Speed</div>
-          <h3 class="h3">Government moves too slowly</h3>
-          <p>Major legislation takes an average of seven years from introduction to passage. The challenges we face in technology, energy, public health, and infrastructure simply cannot wait for an 18th-century process to run its course.</p>
-        </div>
-        <div class="prob-card">
-          <div class="prob-n">02 · Expertise</div>
-          <h3 class="h3">Decisions are made without the right knowledge</h3>
-          <p>Legislators vote on artificial intelligence, nuclear safety, pandemic preparedness, and financial systems without the background to evaluate them properly. Good intentions don't compensate for a lack of relevant expertise.</p>
-        </div>
-        <div class="prob-card">
-          <div class="prob-n">03 · Efficiency</div>
-          <h3 class="h3">Waste has become part of the structure</h3>
-          <p>The federal government spends over $175 billion annually on improper payments alone. Procurement systems regularly pay ten to a hundred times market price. No private institution of any size could survive this level of inefficiency.</p>
-        </div>
-        <div class="prob-card">
-          <div class="prob-n">04 · Time Horizon</div>
-          <h3 class="h3">Short election cycles, long-term problems</h3>
-          <p>Two-year cycles create a built-in bias toward decisions that look good before the next vote. Energy infrastructure, national debt, and climate require thirty-year thinking. A system calibrated to November can't govern for the next generation.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="rule"></div>
-
-  <!-- Waste -->
-  <section class="sec" id="waste">
-    <div class="wrap">
-      <div class="label">Government Waste Tracker</div>
-      <div class="waste-top">
-        <div>
-          <h2 class="h2">Where the System Fails</h2>
-          <p class="lead" style="margin-top:14px;max-width:520px;">What the federal government pays versus what the same item actually costs — across defense, healthcare, technology, and real estate.</p>
-        </div>
-        <div class="waste-box">
-          <div class="waste-box-l">Estimated Annual Federal Waste</div>
-          <div class="waste-box-n">$500B+</div>
-          <div class="waste-box-s">Improper payments · Procurement · Failed IT · Unused space</div>
-        </div>
-      </div>
-
-      <div class="mk-label">▲ Top 5 Worst Markups</div>
-      <div class="mk-grid">
-        <div class="mk-card"><div class="mk-pct">7,900%</div><div class="mk-name">Pentagon Toilet Seat</div><div class="mk-price">$640 vs $8</div></div>
-        <div class="mk-card"><div class="mk-pct">4,250%</div><div class="mk-name">Military Hammer</div><div class="mk-price">$435 vs ~$10</div></div>
-        <div class="mk-card"><div class="mk-pct">2,540%</div><div class="mk-name">Air Force Ashtray</div><div class="mk-price">$660 vs ~$25</div></div>
-        <div class="mk-card"><div class="mk-pct">1,192%</div><div class="mk-name">Navy Coffee Maker</div><div class="mk-price">$7,622 vs ~$590</div></div>
-        <div class="mk-card"><div class="mk-pct">156%</div><div class="mk-name">U.S. Drugs vs OECD</div><div class="mk-price">2.56× peer average</div></div>
-      </div>
-
-      <div class="filter-row">
-        <span class="filter-lbl">Filter:</span>
-        <button class="f-btn on" onclick="filterW('all',this)">All</button>
-        <button class="f-btn" onclick="filterW('defense',this)">Defense</button>
-        <button class="f-btn" onclick="filterW('health',this)">Healthcare</button>
-        <button class="f-btn" onclick="filterW('tech',this)">Technology</button>
-        <button class="f-btn" onclick="filterW('prop',this)">Real Estate</button>
-      </div>
-
-      <div class="wr-list">
-        <div class="wr bad" data-c="defense">
-          <div><div class="wr-badge">Scandalous</div><div class="wr-name">Pentagon Toilet Seat</div><div class="wr-desc">Plastic seat covers for Navy P-3 aircraft billed at $640 each. Available at any hardware store for $8. Documented by journalists via FOIA request.</div><div class="wr-src">Source: DoD Inspector General / Washington Post</div></div>
-          <div class="wp"><div class="wp-l">Govt Pays</div><div class="wp-g">$640</div></div>
-          <div class="wp"><div class="wp-l">Real Value</div><div class="wp-r">$8</div></div>
-          <div class="wm"><div class="wm-n">7,900%</div><div class="wm-l">Markup</div></div>
-        </div>
-        <div class="wr bad" data-c="defense">
-          <div><div class="wr-badge">Scandalous</div><div class="wr-name">F-35 Program Overrun</div><div class="wr-desc">The most expensive weapons program in U.S. history has gone $165 billion over its original budget. Per-unit costs rose from $85M to over $135M. Still in development after two decades.</div><div class="wr-src">Source: GAO 2023 / Department of Defense</div></div>
-          <div class="wp"><div class="wp-l">Total Cost</div><div class="wp-g">$412B</div></div>
-          <div class="wp"><div class="wp-l">Original Estimate</div><div class="wp-r">$247B</div></div>
-          <div class="wm"><div class="wm-n">+$165B</div><div class="wm-l">Overrun</div></div>
-        </div>
-        <div class="wr" data-c="defense">
-          <div><div class="wr-badge">Unaudited</div><div class="wr-name">Pentagon — Six Consecutive Failed Audits</div><div class="wr-desc">With an $842 billion annual budget, the DoD has failed its financial audit six years running. It cannot account for trillions in assets. No private company of any size could legally operate this way.</div><div class="wr-src">Source: DoD Inspector General, 2023</div></div>
-          <div class="wp"><div class="wp-l">Annual Budget</div><div class="wp-g">$842B</div></div>
-          <div class="wp"><div class="wp-l">Properly Audited</div><div class="wp-r">$0</div></div>
-          <div class="wm"><div class="wm-n">6 Fails</div><div class="wm-l">Consecutive</div></div>
-        </div>
-        <div class="wr" data-c="health">
-          <div><div class="wr-badge">Excessive</div><div class="wr-name">Medicare Improper Payments</div><div class="wr-desc">HHS estimates $31.6 billion lost annually to improper Medicare payments — services not rendered, duplicate billing, upcoding. A chronic, unresolved problem spanning multiple administrations.</div><div class="wr-src">Source: HHS Office of Inspector General, 2023</div></div>
-          <div class="wp"><div class="wp-l">Annual Waste</div><div class="wp-g">$31.6B</div></div>
-          <div class="wp"><div class="wp-l">Should Be</div><div class="wp-r">$0</div></div>
-          <div class="wm"><div class="wm-n">$31.6B</div><div class="wm-l">Lost / Year</div></div>
-        </div>
-        <div class="wr" data-c="health">
-          <div><div class="wr-badge">Excessive</div><div class="wr-name">U.S. Drug Prices vs. Peer Nations</div><div class="wr-desc">Americans pay 2.56 times more for brand-name drugs than people in comparable wealthy countries. Federal programs were legally prohibited from negotiating most drug prices until 2022 — a restriction with no equivalent anywhere else in the developed world.</div><div class="wr-src">Source: RAND Corporation, 2021</div></div>
-          <div class="wp"><div class="wp-l">U.S. vs OECD</div><div class="wp-g">2.56×</div></div>
-          <div class="wp"><div class="wp-l">Peer Average</div><div class="wp-r">1×</div></div>
-          <div class="wm"><div class="wm-n">156%</div><div class="wm-l">Overpayment</div></div>
-        </div>
-        <div class="wr" data-c="tech">
-          <div><div class="wr-badge">Excessive</div><div class="wr-name">Federal IT Project Failures</div><div class="wr-desc">The FBI's Virtual Case File cost $170M and was scrapped. HealthCare.gov's launch wasted roughly $600M. The GAO flags dozens of high-risk IT projects annually — many never completed. The government spends $100B+ on technology each year with these results.</div><div class="wr-src">Source: GAO High-Risk Report 2023 / OMB IT Dashboard</div></div>
-          <div class="wp"><div class="wp-l">Wasted on Failed IT</div><div class="wp-g">~$20B+</div></div>
-          <div class="wp"><div class="wp-l">Private Sector Rate</div><div class="wp-r">$2–4B</div></div>
-          <div class="wm"><div class="wm-n">5–10×</div><div class="wm-l">Failure Rate</div></div>
-        </div>
-        <div class="wr" data-c="tech">
-          <div><div class="wr-badge">Excessive</div><div class="wr-name">Legacy IT Maintenance</div><div class="wr-desc">Federal agencies spend roughly 80% of their IT budgets maintaining systems from the 1960s. The IRS still runs a core tax system from 1962. The Social Security Administration operates 60-year-old software. Almost nothing is left for modernization.</div><div class="wr-src">Source: GAO High-Risk IT Report / OMB Federal IT Budget</div></div>
-          <div class="wp"><div class="wp-l">Spent on Legacy</div><div class="wp-g">80%</div></div>
-          <div class="wp"><div class="wp-l">Industry Standard</div><div class="wp-r">25–35%</div></div>
-          <div class="wm"><div class="wm-n">2–3×</div><div class="wm-l">Industry Norm</div></div>
-        </div>
-        <div class="wr" data-c="prop">
-          <div><div class="wr-badge">Excessive</div><div class="wr-name">Unused Federal Office Space</div><div class="wr-desc">The federal government owns or leases 375,000 buildings — 2.9 billion square feet. GAO reports agencies consistently use only about half of it, costing taxpayers over $1.7 billion annually in empty offices nobody needed in the first place.</div><div class="wr-src">Source: GAO-23-106468 / GSA Federal Real Property Data</div></div>
-          <div class="wp"><div class="wp-l">Wasted Space Cost</div><div class="wp-g">$1.7B/yr</div></div>
-          <div class="wp"><div class="wp-l">Utilization Rate</div><div class="wp-r">~50%</div></div>
-          <div class="wm"><div class="wm-n">$1.7B</div><div class="wm-l">Wasted / Year</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="rule"></div>
-
-  <!-- Solution -->
-  <section class="sec" id="solution" style="background:var(--off);">
-    <div class="wrap">
-      <div class="label">The Solution</div>
-      <h2 class="h2">A Better System</h2>
-      <p class="lead" style="max-width:600px;margin-top:14px;">More ideology isn't the answer. Better institutional design is. Democracy sets the direction. Experts handle execution. Each layer does what it's actually built to do.</p>
-      <div class="sol-grid">
-        <div class="sol-blocks">
-          <div class="sol-b b1">
-            <div class="sol-tag">Layer 1 · Direction</div>
-            <div class="sol-title">Democratic Legislature</div>
-            <div class="sol-body">Elected representatives set national priorities, control the budget, and give the system its democratic foundation. They define the "what" — the values and direction of the country. This authority doesn't change.</div>
-          </div>
-          <div class="sol-b b2">
-            <div class="sol-tag">Layer 2 · Execution</div>
-            <div class="sol-title">Expert Councils</div>
-            <div class="sol-body">Independent bodies staffed by domain experts manage technically complex areas — monetary policy, public health, energy, infrastructure — within the mandates set by the legislature. They figure out the "how."</div>
-          </div>
-          <div class="sol-b b3">
-            <div class="sol-tag">Layer 3 · Coordination</div>
-            <div class="sol-title">Strategic Executive</div>
-            <div class="sol-body">A reformed executive function coordinates across councils and manages long-term national planning — structured to think beyond the next election while remaining fully accountable to the legislature and removable by it.</div>
-          </div>
-        </div>
-        <div class="sol-info">
-          <h3 class="h3" style="margin-bottom:16px;">This model already works in parts of government</h3>
-          <p>The Federal Reserve sets monetary policy independently. Courts interpret law without electoral pressure. The FDA approves drugs on scientific merit. These institutions exist because we recognized that certain decisions require expertise — not politics.</p>
-          <p>Advance America proposes extending that logic deliberately and consistently, to the domains where the same pattern clearly applies — while keeping democratic oversight firmly intact at every level.</p>
-          <p>This isn't a rejection of democracy. It's a recognition that democracy works best when it's focused on the decisions it's actually designed to make well.</p>
-          <button class="btn btn-dark" onclick="goPage('theory')">Read the Full Theory →</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Principles -->
-  <section class="sec" id="principles" style="background:var(--black);">
-    <div class="wrap">
-      <div class="label" style="color:rgba(200,16,46,0.85);">Our Principles</div>
-      <h2 class="h2" style="color:#fff;">What We Stand For</h2>
-      <div class="prin-grid">
-        <div class="prin">
-          <span class="prin-n">01</span><span class="prin-icon">⚡</span>
-          <div class="prin-name">Efficient Governance</div>
-          <div class="prin-desc">Government should deliver real value per dollar spent. Waste and inertia aren't quirks — they're failures, and they need to be treated as such.</div>
-        </div>
-        <div class="prin">
-          <span class="prin-n">02</span><span class="prin-icon">🗳️</span>
-          <div class="prin-name">Democratic Legitimacy</div>
-          <div class="prin-desc">All authority comes from the people. Reform must strengthen democracy's ability to express the public will — not bypass it under any circumstances.</div>
-        </div>
-        <div class="prin">
-          <span class="prin-n">03</span><span class="prin-icon">🔬</span>
-          <div class="prin-name">Expert Execution</div>
-          <div class="prin-desc">Complex technical decisions should be made by people with the relevant knowledge — not by those whose primary job is winning the next election.</div>
-        </div>
-        <div class="prin">
-          <span class="prin-n">04</span><span class="prin-icon">🗽</span>
-          <div class="prin-name">Individual Freedom</div>
-          <div class="prin-desc">A more capable state isn't a more intrusive one. Better governance should reduce friction and expand individual liberty — not concentrate power.</div>
-        </div>
-        <div class="prin">
-          <span class="prin-n">05</span><span class="prin-icon">🔭</span>
-          <div class="prin-name">Future-Oriented Policy</div>
-          <div class="prin-desc">Good governance means thinking decades out. The next generation deserves institutions built for their future — not just the next news cycle.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Join -->
-  <section class="sec" id="join" style="background:var(--off);">
-    <div class="wrap">
-      <div class="join-inner">
-        <div class="label" style="justify-content:center;">Join the Movement</div>
-        <h2 class="h2" style="text-align:center;">Be Part of Building the Future</h2>
-        <p class="lead" style="text-align:center;margin-top:12px;">Advance America is growing. Join citizens, policy professionals, and reform advocates who think government can — and should — do better.</p>
-        <div class="join-form">
-          <div class="join-row">
-            <input type="text" class="j-input" placeholder="First Name" />
-            <input type="text" class="j-input" placeholder="Last Name" />
-          </div>
-          <input type="email" class="j-input" placeholder="Email Address" />
-          <button class="j-submit" onclick="handleJoin(this)">Join the Movement →</button>
-        </div>
-        <div class="j-note">No spam. Unsubscribe anytime. We won't share your information.</div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="foot-logo">Advance <span>America</span></div>
-    <ul class="foot-links">
-      <li><button onclick="goSec('problem')">The Problem</button></li>
-      <li><button onclick="goSec('solution')">The Solution</button></li>
-      <li><button onclick="goPage('theory')">Our Theory</button></li>
-      <li><button onclick="goPage('about')">About</button></li>
-      <li><button onclick="goSec('join')">Join</button></li>
-
-    </ul>
-    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
-  </footer>
-</div><!-- /pg-home -->
-
-
-<!-- ════════════════════════════════════════
-     THEORY PAGE
-════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="label">Political Reform Movement · Est. 2026</div>
+      <h1 class="hero-h">Reform <em>Democracy.</em><br>Build the Future.</h1>
+      <p class="hero-sub">Our institutions were built for a slower world. Today's problems move faster than government can respond. Advance America is building a system designed for the modern age.</p>
+      <div class="hero-btns">
+        <button class="btn btn-dark" onclick="goSec('solution')">Learn the System</button>
+        <button class="btn btn-ghost" onclick="goSec('join')">Join the Movement</button>
+      </div>
+    </div>
+    <div class="hero-bar">
+      <div class="hstat"><div class="hstat-n"><em>$1.7T</em></div><div class="hstat-l">Annual Federal Deficit</div></div>
+      <div class="hstat"><div class="hstat-n"><em>175</em>+</div><div class="hstat-l">Federal Agencies</div></div>
+      <div class="hstat"><div class="hstat-n"><em>$500B</em></div><div class="hstat-l">Estimated Annual Waste</div></div>
+      <div class="hstat"><div class="hstat-n"><em>18%</em></div><div class="hstat-l">Congress Approval Rating</div></div>
+    </div>
+  </section>
+  <section class="sec" id="problem" style="background:var(--off);">
+    <div class="wrap">
+      <div class="label">The Problem</div>
+      <h2 class="h2">The System Isn't Broken.<br>It's Outdated.</h2>
+      <p class="lead" style="max-width:620px;margin-top:16px;">American governance was built for a different century. What we're dealing with today isn't a failure of values — it's a failure of design. The world changed. The machine didn't.</p>
+      <div class="prob-grid">
+        <div class="prob-card"><div class="prob-n">01 · Speed</div><h3 class="h3">Government moves too slowly</h3><p>Major legislation takes an average of seven years from introduction to passage. The challenges we face in technology, energy, public health, and infrastructure simply cannot wait for an 18th-century process to run its course.</p></div>
+        <div class="prob-card"><div class="prob-n">02 · Expertise</div><h3 class="h3">Decisions are made without the right knowledge</h3><p>Legislators vote on artificial intelligence, nuclear safety, pandemic preparedness, and financial systems without the background to evaluate them properly. Good intentions don't compensate for a lack of relevant expertise.</p></div>
+        <div class="prob-card"><div class="prob-n">03 · Efficiency</div><h3 class="h3">Waste has become part of the structure</h3><p>The federal government spends over $175 billion annually on improper payments alone. Procurement systems regularly pay ten to a hundred times market price. No private institution of any size could survive this level of inefficiency.</p></div>
+        <div class="prob-card"><div class="prob-n">04 · Time Horizon</div><h3 class="h3">Short election cycles, long-term problems</h3><p>Two-year cycles create a built-in bias toward decisions that look good before the next vote. Energy infrastructure, national debt, and climate require thirty-year thinking. A system calibrated to November can't govern for the next generation.</p></div>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+  <section class="sec" id="waste">
+    <div class="wrap">
+      <div class="label">Government Waste Tracker</div>
+      <div class="waste-top">
+        <div><h2 class="h2">Where the System Fails</h2><p class="lead" style="margin-top:14px;max-width:520px;">What the federal government pays versus what the same item actually costs — across defense, healthcare, technology, and real estate.</p></div>
+        <div class="waste-box"><div class="waste-box-l">Estimated Annual Federal Waste</div><div class="waste-box-n">$500B+</div><div class="waste-box-s">Improper payments · Procurement · Failed IT · Unused space</div></div>
+      </div>
+      <div class="mk-label">▲ Top 5 Worst Markups</div>
+      <div class="mk-grid">
+        <div class="mk-card"><div class="mk-pct">7,900%</div><div class="mk-name">Pentagon Toilet Seat</div><div class="mk-price">$640 vs $8</div></div>
+        <div class="mk-card"><div class="mk-pct">4,250%</div><div class="mk-name">Military Hammer</div><div class="mk-price">$435 vs ~$10</div></div>
+        <div class="mk-card"><div class="mk-pct">2,540%</div><div class="mk-name">Air Force Ashtray</div><div class="mk-price">$660 vs ~$25</div></div>
+        <div class="mk-card"><div class="mk-pct">1,192%</div><div class="mk-name">Navy Coffee Maker</div><div class="mk-price">$7,622 vs ~$590</div></div>
+        <div class="mk-card"><div class="mk-pct">156%</div><div class="mk-name">U.S. Drugs vs OECD</div><div class="mk-price">2.56× peer average</div></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-lbl">Filter:</span>
+        <button class="f-btn on" onclick="filterW('all',this)">All</button>
+        <button class="f-btn" onclick="filterW('defense',this)">Defense</button>
+        <button class="f-btn" onclick="filterW('health',this)">Healthcare</button>
+        <button class="f-btn" onclick="filterW('tech',this)">Technology</button>
+        <button class="f-btn" onclick="filterW('prop',this)">Real Estate</button>
+      </div>
+      <div class="wr-list">
+        <div class="wr bad" data-c="defense"><div><div class="wr-badge">Scandalous</div><div class="wr-name">Pentagon Toilet Seat</div><div class="wr-desc">Plastic seat covers for Navy P-3 aircraft billed at $640 each. Available at any hardware store for $8. Documented by journalists via FOIA request.</div><div class="wr-src">Source: DoD Inspector General / Washington Post</div></div><div class="wp"><div class="wp-l">Govt Pays</div><div class="wp-g">$640</div></div><div class="wp"><div class="wp-l">Real Value</div><div class="wp-r">$8</div></div><div class="wm"><div class="wm-n">7,900%</div><div class="wm-l">Markup</div></div></div>
+        <div class="wr bad" data-c="defense"><div><div class="wr-badge">Scandalous</div><div class="wr-name">F-35 Program Overrun</div><div class="wr-desc">The most expensive weapons program in U.S. history has gone $165 billion over its original budget. Per-unit costs rose from $85M to over $135M. Still in development after two decades.</div><div class="wr-src">Source: GAO 2023 / Department of Defense</div></div><div class="wp"><div class="wp-l">Total Cost</div><div class="wp-g">$412B</div></div><div class="wp"><div class="wp-l">Original Estimate</div><div class="wp-r">$247B</div></div><div class="wm"><div class="wm-n">+$165B</div><div class="wm-l">Overrun</div></div></div>
+        <div class="wr" data-c="defense"><div><div class="wr-badge">Unaudited</div><div class="wr-name">Pentagon — Six Consecutive Failed Audits</div><div class="wr-desc">With an $842 billion annual budget, the DoD has failed its financial audit six years running. It cannot account for trillions in assets. No private company of any size could legally operate this way.</div><div class="wr-src">Source: DoD Inspector General, 2023</div></div><div class="wp"><div class="wp-l">Annual Budget</div><div class="wp-g">$842B</div></div><div class="wp"><div class="wp-l">Properly Audited</div><div class="wp-r">$0</div></div><div class="wm"><div class="wm-n">6 Fails</div><div class="wm-l">Consecutive</div></div></div>
+        <div class="wr" data-c="health"><div><div class="wr-badge">Excessive</div><div class="wr-name">Medicare Improper Payments</div><div class="wr-desc">HHS estimates $31.6 billion lost annually to improper Medicare payments — services not rendered, duplicate billing, upcoding. A chronic, unresolved problem spanning multiple administrations.</div><div class="wr-src">Source: HHS Office of Inspector General, 2023</div></div><div class="wp"><div class="wp-l">Annual Waste</div><div class="wp-g">$31.6B</div></div><div class="wp"><div class="wp-l">Should Be</div><div class="wp-r">$0</div></div><div class="wm"><div class="wm-n">$31.6B</div><div class="wm-l">Lost / Year</div></div></div>
+        <div class="wr" data-c="health"><div><div class="wr-badge">Excessive</div><div class="wr-name">U.S. Drug Prices vs. Peer Nations</div><div class="wr-desc">Americans pay 2.56 times more for brand-name drugs than people in comparable wealthy countries. Federal programs were legally prohibited from negotiating most drug prices until 2022 — a restriction with no equivalent anywhere else in the developed world.</div><div class="wr-src">Source: RAND Corporation, 2021</div></div><div class="wp"><div class="wp-l">U.S. vs OECD</div><div class="wp-g">2.56×</div></div><div class="wp"><div class="wp-l">Peer Average</div><div class="wp-r">1×</div></div><div class="wm"><div class="wm-n">156%</div><div class="wm-l">Overpayment</div></div></div>
+        <div class="wr" data-c="tech"><div><div class="wr-badge">Excessive</div><div class="wr-name">Federal IT Project Failures</div><div class="wr-desc">The FBI's Virtual Case File cost $170M and was scrapped. HealthCare.gov's launch wasted roughly $600M. The GAO flags dozens of high-risk IT projects annually — many never completed.</div><div class="wr-src">Source: GAO High-Risk Report 2023 / OMB IT Dashboard</div></div><div class="wp"><div class="wp-l">Wasted on Failed IT</div><div class="wp-g">~$20B+</div></div><div class="wp"><div class="wp-l">Private Sector Rate</div><div class="wp-r">$2–4B</div></div><div class="wm"><div class="wm-n">5–10×</div><div class="wm-l">Failure Rate</div></div></div>
+        <div class="wr" data-c="tech"><div><div class="wr-badge">Excessive</div><div class="wr-name">Legacy IT Maintenance</div><div class="wr-desc">Federal agencies spend roughly 80% of their IT budgets maintaining systems from the 1960s. The IRS still runs a core tax system from 1962. Almost nothing is left for modernization.</div><div class="wr-src">Source: GAO High-Risk IT Report / OMB Federal IT Budget</div></div><div class="wp"><div class="wp-l">Spent on Legacy</div><div class="wp-g">80%</div></div><div class="wp"><div class="wp-l">Industry Standard</div><div class="wp-r">25–35%</div></div><div class="wm"><div class="wm-n">2–3×</div><div class="wm-l">Industry Norm</div></div></div>
+        <div class="wr" data-c="prop"><div><div class="wr-badge">Excessive</div><div class="wr-name">Unused Federal Office Space</div><div class="wr-desc">The federal government owns or leases 375,000 buildings — 2.9 billion square feet. GAO reports agencies use only about half of it, costing over $1.7 billion annually in empty offices.</div><div class="wr-src">Source: GAO-23-106468 / GSA Federal Real Property Data</div></div><div class="wp"><div class="wp-l">Wasted Space Cost</div><div class="wp-g">$1.7B/yr</div></div><div class="wp"><div class="wp-l">Utilization Rate</div><div class="wp-r">~50%</div></div><div class="wm"><div class="wm-n">$1.7B</div><div class="wm-l">Wasted / Year</div></div></div>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+  <section class="sec" id="solution" style="background:var(--off);">
+    <div class="wrap">
+      <div class="label">The Solution</div>
+      <h2 class="h2">A Better System</h2>
+      <p class="lead" style="max-width:600px;margin-top:14px;">More ideology isn't the answer. Better institutional design is. Democracy sets the direction. Experts handle execution. Each layer does what it's actually built to do.</p>
+      <div class="sol-grid">
+        <div class="sol-blocks">
+          <div class="sol-b b1"><div class="sol-tag">Layer 1 · Direction</div><div class="sol-title">Democratic Legislature</div><div class="sol-body">Elected representatives set national priorities, control the budget, and give the system its democratic foundation. They define the "what" — the values and direction of the country. This authority doesn't change.</div></div>
+          <div class="sol-b b2"><div class="sol-tag">Layer 2 · Execution</div><div class="sol-title">Expert Councils</div><div class="sol-body">Independent bodies staffed by domain experts manage technically complex areas — monetary policy, public health, energy, infrastructure — within the mandates set by the legislature. They figure out the "how."</div></div>
+          <div class="sol-b b3"><div class="sol-tag">Layer 3 · Coordination</div><div class="sol-title">Strategic Executive</div><div class="sol-body">A reformed executive function coordinates across councils and manages long-term national planning — structured to think beyond the next election while remaining fully accountable to the legislature and removable by it.</div></div>
+        </div>
+        <div class="sol-info">
+          <h3 class="h3" style="margin-bottom:16px;">This model already works in parts of government</h3>
+          <p>The Federal Reserve sets monetary policy independently. Courts interpret law without electoral pressure. The FDA approves drugs on scientific merit. These institutions exist because we recognized that certain decisions require expertise — not politics.</p>
+          <p>Advance America proposes extending that logic deliberately and consistently, to the domains where the same pattern clearly applies — while keeping democratic oversight firmly intact at every level.</p>
+          <p>This isn't a rejection of democracy. It's a recognition that democracy works best when it's focused on the decisions it's actually designed to make well.</p>
+          <button class="btn btn-dark" onclick="goPage('theory')">Read the Full Theory →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="principles" style="background:var(--black);">
+    <div class="wrap">
+      <div class="label" style="color:rgba(200,16,46,0.85);">Our Principles</div>
+      <h2 class="h2" style="color:#fff;">What We Stand For</h2>
+      <div class="prin-grid">
+        <div class="prin"><span class="prin-n">01</span><span class="prin-icon">⚡</span><div class="prin-name">Efficient Governance</div><div class="prin-desc">Government should deliver real value per dollar spent. Waste and inertia aren't quirks — they're failures, and they need to be treated as such.</div></div>
+        <div class="prin"><span class="prin-n">02</span><span class="prin-icon">🗳️</span><div class="prin-name">Democratic Legitimacy</div><div class="prin-desc">All authority comes from the people. Reform must strengthen democracy's ability to express the public will — not bypass it under any circumstances.</div></div>
+        <div class="prin"><span class="prin-n">03</span><span class="prin-icon">🔬</span><div class="prin-name">Expert Execution</div><div class="prin-desc">Complex technical decisions should be made by people with the relevant knowledge — not by those whose primary job is winning the next election.</div></div>
+        <div class="prin"><span class="prin-n">04</span><span class="prin-icon">🗽</span><div class="prin-name">Individual Freedom</div><div class="prin-desc">A more capable state isn't a more intrusive one. Better governance should reduce friction and expand individual liberty — not concentrate power.</div></div>
+        <div class="prin"><span class="prin-n">05</span><span class="prin-icon">🔭</span><div class="prin-name">Future-Oriented Policy</div><div class="prin-desc">Good governance means thinking decades out. The next generation deserves institutions built for their future — not just the next news cycle.</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec" id="join" style="background:var(--off);">
+    <div class="wrap">
+      <div class="join-inner">
+        <div class="label" style="justify-content:center;">Join the Movement</div>
+        <h2 class="h2" style="text-align:center;">Be Part of Building the Future</h2>
+        <p class="lead" style="text-align:center;margin-top:12px;">Advance America is growing. Join citizens, policy professionals, and reform advocates who think government can — and should — do better.</p>
+        <div class="join-form">
+          <div class="join-row">
+            <input type="text" class="j-input" placeholder="First Name" />
+            <input type="text" class="j-input" placeholder="Last Name" />
+          </div>
+          <input type="email" class="j-input" placeholder="Email Address" />
+          <button class="j-submit" onclick="handleJoin(this)">Join the Movement →</button>
+        </div>
+        <div class="j-note">No spam. Unsubscribe anytime. We won't share your information.</div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="foot-logo">Advance <span>America</span></div>
+    <ul class="foot-links">
+      <li><button onclick="goSec('problem')">The Problem</button></li>
+      <li><button onclick="goSec('solution')">The Solution</button></li>
+      <li><button onclick="goPage('theory')">Our Theory</button></li>
+      <li><button onclick="goPage('about')">About</button></li>
+      <li><button onclick="goSec('join')">Join</button></li>
+    </ul>
+    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
+  </footer>
+</div>
 <div class="page" id="pg-theory">
-  <div class="pt">
-
-    <div class="th-hero">
-      <div class="wrap">
-        <div class="th-hero-in">
-          <div class="th-label">Advance America · Political Theory</div>
-          <h1 class="th-h">The Case for<br>Institutional Reform</h1>
-          <p class="th-sub">A plain-language explanation of why our system needs to change, what we're proposing instead, and how the pieces fit together.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="th-tabs" id="theoryTabs">
-      <div class="th-tabs-in">
-        <button class="th-tab ton" data-panel="diag">The Diagnosis</button>
-        <button class="th-tab" data-panel="reform">Democratic Reform</button>
-        <button class="th-tab" data-panel="councils">Expert Councils</button>
-        <button class="th-tab" data-panel="exec">The Executive</button>
-        <button class="th-tab" data-panel="econ">Economic Model</button>
-        <button class="th-tab" data-panel="edu">Education</button>
-        <button class="th-tab" data-panel="civic">Civic Solidarity</button>
-      </div>
-    </div>
-
-    <!-- PANEL: DIAGNOSIS -->
-    <div class="th-panel pon" id="panel-diag">
-      <div class="th-body">
-        <h2>The Core Problem: Government Can't Keep Up</h2>
-        <p>There's a growing gap between how fast the world moves and how fast government can respond. This isn't a new observation — but most political systems have refused to take it seriously. We take it seriously.</p>
-        <p>Modern life is shaped by fast, self-reinforcing systems: financial markets, supply chains, digital infrastructure, artificial intelligence, energy grids. When these systems encounter problems, they adapt in hours or days. Government measures its response time in months or years — and often in decades.</p>
-        <div class="th-pull">"The issue isn't that democracy is wrong. The issue is that the institutions we use to practice democracy were designed for a much slower world — and we haven't updated them."</div>
-        <h2>What This Creates</h2>
-        <p>When slow institutions face fast problems, one of two things tends to happen. Neither is good.</p>
-        <div class="th-grid2">
-          <div class="th-card">
-            <h4>Symbolic Participation</h4>
-            <p>Elections continue as normal, but actual decisions are being made elsewhere — by bureaucracies and systems no elected official meaningfully controls. Democracy becomes performance rather than reality.</p>
-          </div>
-          <div class="th-card">
-            <h4>Emergency Centralization</h4>
-            <p>Repeated crises justify exceptional authority, which quietly becomes permanent. Each emergency expands executive power. Over time, democratic limits erode — not through revolution, but through accumulated exceptions.</p>
-          </div>
-        </div>
-        <p>We believe there's a third path. Not theater, and not emergency rule — but a reformed system that keeps democratic legitimacy intact while building the institutional capacity to actually govern in the world we live in now.</p>
-        <h2>Why Reform Has to Happen Now</h2>
-        <p>The time to reform democratic institutions is before they fail — not after. Every major institutional collapse in history was preceded by a period where reform was possible but not pursued. We think the United States is in that window right now.</p>
-        <div class="th-num"><div class="n">18%</div><div class="t">Congressional approval rating. The institution responsible for governing the world's largest economy commands less public confidence than almost anything else in American life. That's a structural signal — not a political one.</div></div>
-      </div>
-    </div>
-
-    <!-- PANEL: REFORM -->
-    <div class="th-panel" id="panel-reform">
-      <div class="th-body">
-        <h2>Reforming Democracy — Not Replacing It</h2>
-        <p>Advance America's goal isn't to weaken democracy. It's to make it work. That distinction matters, and we want to be clear about it.</p>
-        <p>Democratic legitimacy — the idea that governing authority must ultimately come from the people — is the foundation of everything we propose. Any reform that undermines it isn't worth making.</p>
-        <div class="th-pull">What we're proposing is democratic differentiation: matching different kinds of decisions to the institutional structures best equipped to make them — while keeping all of those structures answerable to democratic authority.</div>
-        <h2>The Limitation of One-Size Democracy</h2>
-        <p>Modern democracy treats all decisions the same way. Whether the question is "what should our national values be" or "what is the correct interest rate given current inflation data" — both go through the same process: legislators vote, parties negotiate, and the outcome reflects political pressure as much as underlying reality.</p>
-        <p>That works reasonably well for questions of values and priorities. It works poorly for highly technical decisions where quality depends on specialized knowledge that most legislators — and most voters — don't have and can't reasonably be expected to acquire.</p>
-        <h2>What We Propose</h2>
-        <ul>
-          <li><strong>Legislature holds supreme authority</strong> — over values, priorities, budgets, rights, and the power to override, restructure, or dissolve any other institution</li>
-          <li><strong>Expert councils handle technical execution</strong> — within mandates set by the legislature, with full transparency and public accountability at all times</li>
-          <li><strong>A reformed executive coordinates long-term strategy</strong> — with structural insulation from short-term political pressure, but never from democratic accountability</li>
-          <li><strong>All emergency powers sunset automatically</strong> — unless explicitly renewed by legislative supermajority; no exception becomes permanent</li>
-          <li><strong>Parliament can reverse everything</strong> — the entire system is designed with reversion built in; if it stops working, it can be unwound</li>
-        </ul>
-        <h2>What Doesn't Change</h2>
-        <p>Elections. Rights. Freedom of speech, press, and assembly. The ability of citizens to challenge government decisions. The accountability of every official to public oversight. The presumption of individual liberty against state power.</p>
-        <p>The reform is about how government executes — not about who it ultimately answers to. The answer to that question stays the same: the people.</p>
-      </div>
-    </div>
-
-    <!-- PANEL: COUNCILS -->
-    <div class="th-panel" id="panel-councils">
-      <div class="th-body">
-        <h2>Expert Councils: Qualified People Making Technical Decisions</h2>
-        <p>The United States already has expert councils. We just haven't built them consistently or called them that.</p>
-        <p>The Federal Reserve sets monetary policy. The FDA approves drugs. The FAA certifies aircraft. The CDC issues public health guidance. These institutions exist because we recognized, at some point, that certain decisions require expertise — and that leaving them entirely to electoral politics produces worse outcomes for everyone.</p>
-        <p>Advance America proposes extending this logic more broadly and more deliberately — to energy, infrastructure, cybersecurity, and other domains where the same pattern clearly applies.</p>
-        <h2>How Councils Work</h2>
-        <div class="th-grid2">
-          <div class="th-card">
-            <h4>Domain Authority</h4>
-            <p>Each council holds regulatory authority within its specific domain — setting standards, evaluating options, making technical decisions — constrained by constitutional rights and the mandates given to it by the legislature.</p>
-          </div>
-          <div class="th-card">
-            <h4>Expert Selection</h4>
-            <p>Council leadership is selected by and from people with demonstrated expertise in the relevant domain. Not political appointments. Not partisan confirmation processes. People who actually understand the domain they're governing.</p>
-          </div>
-          <div class="th-card">
-            <h4>Full Transparency</h4>
-            <p>Councils publish their reasoning, data, and deliberations publicly. Their decisions can be challenged, reviewed, and reversed. Opacity is structurally prohibited, not just discouraged.</p>
-          </div>
-          <div class="th-card">
-            <h4>Democratic Override</h4>
-            <p>Parliament can override any council decision by supermajority vote. The legislature retains the final word on everything. Councils advise, evaluate, and execute — they don't govern independently of democratic authority.</p>
-          </div>
-        </div>
-        <div class="th-pull">The goal isn't to remove humans from decisions. It's to ensure that the humans making highly technical decisions are the ones most qualified to make them — and that they're held accountable for the results.</div>
-        <h2>Preventing Tunnel Vision</h2>
-        <p>One risk with expert councils is that each one optimizes for its own domain at the expense of the broader system. A defense council might prioritize security in ways that strain the economy. An energy council might optimize for supply stability in ways that conflict with other goals.</p>
-        <p>To address this, major decisions with cross-domain implications go through a joint review process — all councils together — before they take effect. No single council can lock in a direction that damages the rest of the system.</p>
-      </div>
-    </div>
-
-    <!-- PANEL: EXECUTIVE -->
-    <div class="th-panel" id="panel-exec">
-      <div class="th-body">
-        <h2>The Executive: Coordination and Long-Term Strategy</h2>
-        <p>One of the deepest problems in modern democratic governance is the mismatch between electoral timescales and the timescales of the problems governments need to solve.</p>
-        <p>A president elected to a four-year term has every institutional incentive to prioritize outcomes visible before the next vote. Infrastructure projects that take fifteen years. Debt reduction requiring decades of discipline. Education reforms whose effects appear a generation later. These get systematically underinvested — not because leaders are bad people, but because the system rewards short-term thinking and punishes long-term discipline.</p>
-        <h2>A Different Kind of Executive</h2>
-        <p>We propose a reformed executive function designed for long-horizon coordination. The executive sets the system's overall strategic direction — defining major national objectives and coordinating across expert councils to pursue them. It doesn't manage implementation details; that's the councils' job.</p>
-        <div class="th-pull">The executive in this model is a coordinator and strategist — not an operator. It sets the destination and keeps the system oriented toward it. The councils build the road.</div>
-        <h2>Parliamentary Accountability</h2>
-        <p>The executive remains fully accountable to the legislature. Parliament can override executive decisions by supermajority vote. Parliament can remove an executive. All emergency powers sunset automatically and require legislative renewal. Nothing about this changes the fundamental relationship between the executive and the democratic legislature — it just structures the executive's incentives differently.</p>
-        <h2>Removal and Stability</h2>
-        <p>Removing an executive before the end of a term requires a high threshold of consensus. This isn't designed to protect bad executives — it's designed to ensure that opposition operates through legitimate institutional channels rather than manufactured crises.</p>
-        <p>An executive who fails visibly and broadly can and should be removed. An executive whose decisions are unpopular in the short term shouldn't face constant destabilization. The system needs to distinguish between those two situations.</p>
-      </div>
-    </div>
-
-    <!-- PANEL: ECONOMY -->
-    <div class="th-panel" id="panel-econ">
-      <div class="th-body">
-        <h2>The Economic Model: Markets First, State When Necessary</h2>
-        <p>Our economic philosophy starts from a simple premise: markets, when they work properly, allocate resources better than any central authority can. The price mechanism aggregates information from millions of individual decisions in ways no planning system has ever replicated. We take that seriously.</p>
-        <h2>The Default: Market Sovereignty</h2>
-        <p>In most sectors, the state's role is to establish clear rules, enforce contracts, protect property rights, and then step back. Regulatory friction in non-strategic sectors should be minimized. Private enterprise is the primary engine of economic activity and innovation — and should stay that way.</p>
-        <div class="th-grid2">
-          <div class="th-card">
-            <h4>Capital Discipline</h4>
-            <p>Interest rate policy that rewards real value creation over speculation and leverage. This acts as a filter against insolvent businesses and speculative bubbles — enforcing market discipline rather than subsidizing failure.</p>
-          </div>
-          <div class="th-card">
-            <h4>Monetary Stability</h4>
-            <p>A controlled, predictable monetary policy — targeting modest, stable expansion — ensures liquidity without debasement. Capital should circulate toward productive use rather than sitting idle or fueling asset inflation.</p>
-          </div>
-        </div>
-        <h2>When the State Steps In</h2>
-        <p>There are circumstances — systemic financial collapse, infrastructure failure, strategic national threats — where market mechanisms break down or where the consequences of failure are too severe to accept. In those cases, the state must be capable of decisive action.</p>
-        <div class="th-pull">Emergency economic authority should work like a circuit breaker: activated under specific conditions, protective in function, and designed to switch off automatically when the crisis ends. Not a ratchet that only moves in one direction.</div>
-        <p>We propose a clear constitutional framework for such interventions — specific trigger conditions, defined scope, mandatory public accounting, and a requirement to return to the market baseline once the crisis has passed. Every emergency power has an expiration date.</p>
-        <h2>What This Isn't</h2>
-        <p>This is not a centrally planned economy. It's not a proposal for state ownership of industry. It's not hostile to private wealth or entrepreneurship. It's a market economy with honest rules, genuine discipline, and a state capable of acting decisively when the situation demands — and stepping back when it doesn't.</p>
-      </div>
-    </div>
-
-    <!-- PANEL: EDUCATION -->
-    <div class="th-panel" id="panel-edu">
-      <div class="th-body">
-        <h2>Education: Developing the Full Range of Human Potential</h2>
-        <p>One of the most important long-term investments any society makes is in the quality of its people. The current American education system — built around standardized age cohorts, uniform pacing, and administrative compliance — was designed for a different era and produces increasingly inconsistent results.</p>
-        <p>Advance America believes education should be rebuilt around two principles: developing the full range of human potential at every level, and ensuring that exceptional ability — wherever it appears — gets identified and cultivated rather than lost in a one-size system.</p>
-        <h2>Personalized Learning Velocity</h2>
-        <p>One of the clearest failures of current educational design is forcing all students to move at the same pace regardless of how quickly they're actually learning. A student who grasps algebra at nine shouldn't spend three years waiting for the curriculum to catch up. A student who struggles with abstract reasoning may excel in applied work, creativity, or craft — and shouldn't spend years being measured as deficient by metrics designed for a different kind of mind.</p>
-        <div class="th-pull">Technology makes genuinely personalized education possible at scale. Every student paired with an adaptive learning system that responds to their pace, gaps, and strengths. The tools exist. The barrier is institutional, not technical.</div>
-        <h2>Developing All Forms of Capability</h2>
-        <p>A healthy society needs people who are excellent at many different things. It needs engineers and scientists — and it also needs artists, athletes, craftspeople, teachers, and communicators. An education system that treats abstract academic achievement as the only form of valuable human capability is leaving most of its potential untouched.</p>
-        <p>We propose a curriculum that takes the full range of human capability seriously — developing technical expertise in those who have it, creative and practical excellence in those who show it, and ensuring no student reaches adulthood without a meaningful path toward competence and contribution.</p>
-        <h2>Cross-Track Collaboration</h2>
-        <p>Whatever differentiation exists within the educational system, it shouldn't produce social fragmentation. We propose structured collaboration across different student tracks — joint challenges requiring teams with diverse strengths to work together. The engineer can't succeed without the designer. The strategist can't succeed without the communicator. Students should understand this before they enter professional life.</p>
-        <h2>University Independence</h2>
-        <p>Universities must remain independent from any state sorting system. They recruit based on demonstrated ability, depth of work, and intellectual resilience — not administrative labels. This preserves the discovery of unconventional talent and keeps the highest levels of intellectual life genuinely open-ended.</p>
-        <h2>Open-Source AI Tutoring</h2>
-        <p>Every student should have access to an AI learning partner that adapts to their pace and responds to their specific gaps and strengths. The architecture of this system should be open source and constitutionally protected from government control — a tool for learning, not a mechanism for ideological influence.</p>
-      </div>
-    </div>
-
-    <!-- PANEL: CIVICS -->
-    <div class="th-panel" id="panel-civic">
-      <div class="th-body">
-        <h2>Civic Solidarity: What Makes Reform Actually Work</h2>
-        <p>Institutional reform, however well-designed, can't function without a population that trusts it enough to participate in it. The technical architecture of any governance system depends, underneath everything, on shared norms, mutual obligations, and a sense of common purpose among the people it governs.</p>
-        <p>We call this civic solidarity. It isn't nationalism, ethnic identity, or ideological uniformity. It's the condition in which people feel themselves part of a shared project — something worth contributing to, worth sacrificing for, and worth protecting.</p>
-        <div class="th-pull">"The polity is an idea-space, not an ethnicity. Civic solidarity is built from shared purposes and mutual obligations — not from ancestry or political conformity."</div>
-        <h2>Why It Matters Right Now</h2>
-        <p>Trust in public institutions is at historic lows. Political identity has become the primary lens through which many Americans interpret everything — not just politics, but science, local institutions, and personal relationships. This isn't a healthy condition for a democracy, and it isn't a stable one.</p>
-        <p>Institutional reform without civic renewal produces cynicism, not participation. People who don't trust the system won't engage with it. And a system that keeps failing gives them increasingly good reasons not to.</p>
-        <h2>What Civic Solidarity Requires</h2>
-        <ul>
-          <li>Institutions that demonstrably work — producing outcomes people can see and trust</li>
-          <li>Transparent governance — decisions made in the open and explained honestly</li>
-          <li>Genuine accountability — where failure has consequences and success is recognized</li>
-          <li>Structured dissent — formal channels through which disagreement can be expressed and heard, reducing pressure toward extra-institutional conflict</li>
-          <li>A credible narrative of shared purpose — not propaganda, but an honest account of what we're building and why it matters</li>
-        </ul>
-        <h2>Reform and Solidarity Reinforce Each Other</h2>
-        <p>This is why Advance America treats institutional reform and civic renewal as inseparable. You can't build trust in institutions that don't work. You can't build institutions that work without a population willing to hold them accountable.</p>
-        <p>The reforms we propose are designed to produce governance outcomes that are visible, attributable, and capable of rebuilding the kind of public trust that democratic governance ultimately requires to survive.</p>
-        <h2>The Long View</h2>
-        <p>Every institutional framework that works in the present must be capable of changing when conditions change. The architecture we propose builds in explicit mechanisms for democratic re-expansion — for returning authority to more direct democratic structures as institutions prove their trustworthiness and as immediate pressures recede. The goal isn't a permanent state of managed democracy. The goal is a democratic system capable of surviving its current challenges and emerging from them with more legitimacy than it entered with.</p>
-      </div>
-    </div>
-
-  </div><!-- /pt -->
-
-  <footer>
-    <div class="foot-logo">Advance <span>America</span></div>
-    <ul class="foot-links">
-      <li><button onclick="goPage('home')">Home</button></li>
-      <li><button onclick="goPage('about')">About</button></li>
-      <li><button onclick="goPage('home'); goSec('join')">Join</button></li>
-    </ul>
-    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
-  </footer>
-</div><!-- /pg-theory -->
-
-
-<!-- ════════════════════════════════════════
-     ABOUT PAGE
-════════════════════════════════════════ -->
+  <div class="pt">
+    <div class="th-hero">
+      <div class="wrap">
+        <div class="th-hero-in">
+          <div class="th-label">Advance America · Political Theory</div>
+          <h1 class="th-h">The Case for<br>Institutional Reform</h1>
+          <p class="th-sub">A plain-language explanation of why our system needs to change, what we're proposing instead, and how the pieces fit together.</p>
+        </div>
+      </div>
+    </div>
+    <div class="th-tabs">
+      <div class="th-tabs-in">
+        <button class="th-tab ton" data-panel="diag">The Diagnosis</button>
+        <button class="th-tab" data-panel="reform">Democratic Reform</button>
+        <button class="th-tab" data-panel="councils">Expert Councils</button>
+        <button class="th-tab" data-panel="exec">The Executive</button>
+        <button class="th-tab" data-panel="econ">Economic Model</button>
+        <button class="th-tab" data-panel="edu">Education</button>
+        <button class="th-tab" data-panel="civic">Civic Solidarity</button>
+      </div>
+    </div>
+    <div class="th-panel pon" id="panel-diag">
+      <div class="th-body">
+        <h2>The Core Problem: Government Can't Keep Up</h2>
+        <p>There's a growing gap between how fast the world moves and how fast government can respond. This isn't a new observation — but most political systems have refused to take it seriously. We take it seriously.</p>
+        <p>Modern life is shaped by fast, self-reinforcing systems: financial markets, supply chains, digital infrastructure, artificial intelligence, energy grids. When these systems encounter problems, they adapt in hours or days. Government measures its response time in months or years — and often in decades.</p>
+        <div class="th-pull">"The issue isn't that democracy is wrong. The issue is that the institutions we use to practice democracy were designed for a much slower world — and we haven't updated them."</div>
+        <h2>What This Creates</h2>
+        <p>When slow institutions face fast problems, one of two things tends to happen. Neither is good.</p>
+        <div class="th-grid2">
+          <div class="th-card"><h4>Symbolic Participation</h4><p>Elections continue as normal, but actual decisions are being made elsewhere — by bureaucracies and systems no elected official meaningfully controls. Democracy becomes performance rather than reality.</p></div>
+          <div class="th-card"><h4>Emergency Centralization</h4><p>Repeated crises justify exceptional authority, which quietly becomes permanent. Each emergency expands executive power. Over time, democratic limits erode — not through revolution, but through accumulated exceptions.</p></div>
+        </div>
+        <p>We believe there's a third path. Not theater, and not emergency rule — but a reformed system that keeps democratic legitimacy intact while building the institutional capacity to actually govern in the world we live in now.</p>
+        <h2>Why Reform Has to Happen Now</h2>
+        <p>The time to reform democratic institutions is before they fail — not after. Every major institutional collapse in history was preceded by a period where reform was possible but not pursued. We think the United States is in that window right now.</p>
+        <div class="th-num"><div class="n">18%</div><div class="t">Congressional approval rating. The institution responsible for governing the world's largest economy commands less public confidence than almost anything else in American life. That's a structural signal — not a political one.</div></div>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-reform">
+      <div class="th-body">
+        <h2>Reforming Democracy — Not Replacing It</h2>
+        <p>Advance America's goal isn't to weaken democracy. It's to make it work. That distinction matters, and we want to be clear about it.</p>
+        <p>Democratic legitimacy — the idea that governing authority must ultimately come from the people — is the foundation of everything we propose. Any reform that undermines it isn't worth making.</p>
+        <div class="th-pull">What we're proposing is democratic differentiation: matching different kinds of decisions to the institutional structures best equipped to make them — while keeping all of those structures answerable to democratic authority.</div>
+        <h2>The Limitation of One-Size Democracy</h2>
+        <p>Modern democracy treats all decisions the same way. Whether the question is "what should our national values be" or "what is the correct interest rate given current inflation data" — both go through the same process: legislators vote, parties negotiate, and the outcome reflects political pressure as much as underlying reality.</p>
+        <p>That works reasonably well for questions of values and priorities. It works poorly for highly technical decisions where quality depends on specialized knowledge that most legislators — and most voters — don't have and can't reasonably be expected to acquire.</p>
+        <h2>What We Propose</h2>
+        <ul>
+          <li><strong>Legislature holds supreme authority</strong> — over values, priorities, budgets, rights, and the power to override, restructure, or dissolve any other institution</li>
+          <li><strong>Expert councils handle technical execution</strong> — within mandates set by the legislature, with full transparency and public accountability at all times</li>
+          <li><strong>A reformed executive coordinates long-term strategy</strong> — with structural insulation from short-term political pressure, but never from democratic accountability</li>
+          <li><strong>All emergency powers sunset automatically</strong> — unless explicitly renewed by legislative supermajority; no exception becomes permanent</li>
+          <li><strong>Parliament can reverse everything</strong> — the entire system is designed with reversion built in; if it stops working, it can be unwound</li>
+        </ul>
+        <h2>What Doesn't Change</h2>
+        <p>Elections. Rights. Freedom of speech, press, and assembly. The ability of citizens to challenge government decisions. The accountability of every official to public oversight. The presumption of individual liberty against state power.</p>
+        <p>The reform is about how government executes — not about who it ultimately answers to. The answer to that question stays the same: the people.</p>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-councils">
+      <div class="th-body">
+        <h2>Expert Councils: Qualified People Making Technical Decisions</h2>
+        <p>The United States already has expert councils. We just haven't built them consistently or called them that.</p>
+        <p>The Federal Reserve sets monetary policy. The FDA approves drugs. The FAA certifies aircraft. The CDC issues public health guidance. These institutions exist because we recognized, at some point, that certain decisions require expertise — and that leaving them entirely to electoral politics produces worse outcomes for everyone.</p>
+        <p>Advance America proposes extending this logic more broadly and more deliberately — to energy, infrastructure, cybersecurity, and other domains where the same pattern clearly applies.</p>
+        <h2>How Councils Work</h2>
+        <div class="th-grid2">
+          <div class="th-card"><h4>Domain Authority</h4><p>Each council holds regulatory authority within its specific domain — setting standards, evaluating options, making technical decisions — constrained by constitutional rights and the mandates given to it by the legislature.</p></div>
+          <div class="th-card"><h4>Expert Selection</h4><p>Council leadership is selected by and from people with demonstrated expertise in the relevant domain. Not political appointments. Not partisan confirmation processes. People who actually understand the domain they're governing.</p></div>
+          <div class="th-card"><h4>Full Transparency</h4><p>Councils publish their reasoning, data, and deliberations publicly. Their decisions can be challenged, reviewed, and reversed. Opacity is structurally prohibited, not just discouraged.</p></div>
+          <div class="th-card"><h4>Democratic Override</h4><p>Parliament can override any council decision by supermajority vote. The legislature retains the final word on everything. Councils advise, evaluate, and execute — they don't govern independently of democratic authority.</p></div>
+        </div>
+        <div class="th-pull">The goal isn't to remove humans from decisions. It's to ensure that the humans making highly technical decisions are the ones most qualified to make them — and that they're held accountable for the results.</div>
+        <h2>Preventing Tunnel Vision</h2>
+        <p>One risk with expert councils is that each one optimizes for its own domain at the expense of the broader system. To address this, major decisions with cross-domain implications go through a joint review process — all councils together — before they take effect. No single council can lock in a direction that damages the rest of the system.</p>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-exec">
+      <div class="th-body">
+        <h2>The Executive: Coordination and Long-Term Strategy</h2>
+        <p>One of the deepest problems in modern democratic governance is the mismatch between electoral timescales and the timescales of the problems governments need to solve.</p>
+        <p>A president elected to a four-year term has every institutional incentive to prioritize outcomes visible before the next vote. Infrastructure projects that take fifteen years. Debt reduction requiring decades of discipline. Education reforms whose effects appear a generation later. These get systematically underinvested — not because leaders are bad people, but because the system rewards short-term thinking and punishes long-term discipline.</p>
+        <h2>A Different Kind of Executive</h2>
+        <p>We propose a reformed executive function designed for long-horizon coordination. The executive sets the system's overall strategic direction — defining major national objectives and coordinating across expert councils to pursue them. It doesn't manage implementation details; that's the councils' job.</p>
+        <div class="th-pull">The executive in this model is a coordinator and strategist — not an operator. It sets the destination and keeps the system oriented toward it. The councils build the road.</div>
+        <h2>Parliamentary Accountability</h2>
+        <p>The executive remains fully accountable to the legislature. Parliament can override executive decisions by supermajority vote. Parliament can remove an executive. All emergency powers sunset automatically and require legislative renewal.</p>
+        <h2>Removal and Stability</h2>
+        <p>Removing an executive before the end of a term requires a high threshold of consensus. This isn't designed to protect bad executives — it's designed to ensure that opposition operates through legitimate institutional channels rather than manufactured crises. An executive who fails visibly and broadly can and should be removed. An executive whose decisions are unpopular in the short term shouldn't face constant destabilization.</p>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-econ">
+      <div class="th-body">
+        <h2>The Economic Model: Markets First, State When Necessary</h2>
+        <p>Our economic philosophy starts from a simple premise: markets, when they work properly, allocate resources better than any central authority can. The price mechanism aggregates information from millions of individual decisions in ways no planning system has ever replicated. We take that seriously.</p>
+        <h2>The Default: Market Sovereignty</h2>
+        <p>In most sectors, the state's role is to establish clear rules, enforce contracts, protect property rights, and then step back. Regulatory friction in non-strategic sectors should be minimized. Private enterprise is the primary engine of economic activity and innovation — and should stay that way.</p>
+        <div class="th-grid2">
+          <div class="th-card"><h4>Capital Discipline</h4><p>Interest rate policy that rewards real value creation over speculation and leverage. This acts as a filter against insolvent businesses and speculative bubbles — enforcing market discipline rather than subsidizing failure.</p></div>
+          <div class="th-card"><h4>Monetary Stability</h4><p>A controlled, predictable monetary policy — targeting modest, stable expansion — ensures liquidity without debasement. Capital should circulate toward productive use rather than sitting idle or fueling asset inflation.</p></div>
+        </div>
+        <h2>When the State Steps In</h2>
+        <p>There are circumstances where market mechanisms break down or where the consequences of failure are too severe to accept. In those cases, the state must be capable of decisive action.</p>
+        <div class="th-pull">Emergency economic authority should work like a circuit breaker: activated under specific conditions, protective in function, and designed to switch off automatically when the crisis ends. Not a ratchet that only moves in one direction.</div>
+        <p>We propose a clear constitutional framework for such interventions — specific trigger conditions, defined scope, mandatory public accounting, and a requirement to return to the market baseline once the crisis has passed. Every emergency power has an expiration date.</p>
+        <h2>What This Isn't</h2>
+        <p>This is not a centrally planned economy. It's not hostile to private wealth or entrepreneurship. It's a market economy with honest rules, genuine discipline, and a state capable of acting decisively when the situation demands — and stepping back when it doesn't.</p>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-edu">
+      <div class="th-body">
+        <h2>Education: Developing the Full Range of Human Potential</h2>
+        <p>One of the most important long-term investments any society makes is in the quality of its people. The current American education system — built around standardized age cohorts, uniform pacing, and administrative compliance — was designed for a different era and produces increasingly inconsistent results.</p>
+        <p>Advance America believes education should be rebuilt around two principles: developing the full range of human potential at every level, and ensuring that exceptional ability — wherever it appears — gets identified and cultivated rather than lost in a one-size system.</p>
+        <h2>Personalized Learning Velocity</h2>
+        <p>One of the clearest failures of current educational design is forcing all students to move at the same pace regardless of how quickly they're actually learning. A student who grasps algebra at nine shouldn't spend three years waiting for the curriculum to catch up.</p>
+        <div class="th-pull">Technology makes genuinely personalized education possible at scale. Every student paired with an adaptive learning system that responds to their pace, gaps, and strengths. The tools exist. The barrier is institutional, not technical.</div>
+        <h2>Developing All Forms of Capability</h2>
+        <p>A healthy society needs people who are excellent at many different things — engineers and scientists, but also artists, athletes, craftspeople, teachers, and communicators. An education system that treats abstract academic achievement as the only form of valuable human capability is leaving most of its potential untouched.</p>
+        <h2>Cross-Track Collaboration</h2>
+        <p>Whatever differentiation exists within the educational system, it shouldn't produce social fragmentation. We propose structured collaboration across different student tracks — joint challenges requiring teams with diverse strengths to work together. The engineer can't succeed without the designer. Students should understand this before they enter professional life.</p>
+        <h2>University Independence</h2>
+        <p>Universities must remain independent from any state sorting system. They recruit based on demonstrated ability, depth of work, and intellectual resilience — not administrative labels.</p>
+        <h2>Open-Source AI Tutoring</h2>
+        <p>Every student should have access to an AI learning partner that adapts to their pace and responds to their specific gaps and strengths. The architecture of this system should be open source and constitutionally protected from government control — a tool for learning, not a mechanism for ideological influence.</p>
+      </div>
+    </div>
+    <div class="th-panel" id="panel-civic">
+      <div class="th-body">
+        <h2>Civic Solidarity: What Makes Reform Actually Work</h2>
+        <p>Institutional reform, however well-designed, can't function without a population that trusts it enough to participate in it. The technical architecture of any governance system depends, underneath everything, on shared norms, mutual obligations, and a sense of common purpose among the people it governs.</p>
+        <p>We call this civic solidarity. It isn't nationalism, ethnic identity, or ideological uniformity. It's the condition in which people feel themselves part of a shared project — something worth contributing to, worth sacrificing for, and worth protecting.</p>
+        <div class="th-pull">"The polity is an idea-space, not an ethnicity. Civic solidarity is built from shared purposes and mutual obligations — not from ancestry or political conformity."</div>
+        <h2>Why It Matters Right Now</h2>
+        <p>Trust in public institutions is at historic lows. Political identity has become the primary lens through which many Americans interpret everything — not just politics, but science, local institutions, and personal relationships. This isn't a healthy condition for a democracy, and it isn't a stable one.</p>
+        <p>Institutional reform without civic renewal produces cynicism, not participation. People who don't trust the system won't engage with it. And a system that keeps failing gives them increasingly good reasons not to.</p>
+        <h2>What Civic Solidarity Requires</h2>
+        <ul>
+          <li>Institutions that demonstrably work — producing outcomes people can see and trust</li>
+          <li>Transparent governance — decisions made in the open and explained honestly</li>
+          <li>Genuine accountability — where failure has consequences and success is recognized</li>
+          <li>Structured dissent — formal channels through which disagreement can be expressed and heard</li>
+          <li>A credible narrative of shared purpose — not propaganda, but an honest account of what we're building and why it matters</li>
+        </ul>
+        <h2>The Long View</h2>
+        <p>Every institutional framework that works in the present must be capable of changing when conditions change. The architecture we propose builds in explicit mechanisms for democratic re-expansion — for returning authority to more direct democratic structures as institutions prove their trustworthiness. The goal isn't a permanent state of managed democracy. The goal is a democratic system capable of surviving its current challenges and emerging from them with more legitimacy than it entered with.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="foot-logo">Advance <span>America</span></div>
+    <ul class="foot-links">
+      <li><button onclick="goPage('home')">Home</button></li>
+      <li><button onclick="goPage('about')">About</button></li>
+      <li><button onclick="goPage('home'); goSec('join')">Join</button></li>
+    </ul>
+    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
+  </footer>
+</div>
 <div class="page" id="pg-about">
-  <div class="pt">
-
-    <div class="ab-hero">
-      <div class="wrap">
-        <div style="max-width:700px;">
-          <div class="label">About</div>
-          <h1 class="h1" style="font-size:clamp(2.4rem,5vw,4rem);margin-bottom:20px;">Why Advance America Exists</h1>
-          <p class="lead">We're a Political Action Committee organized around a single conviction: that the design of American government needs to be updated for the world we actually live in — not the world of 1787.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="ab-body">
-      <div class="wrap">
-
-        <div class="ab-sect">
-          <div class="label">Our Mission</div>
-          <h2>Reform Without Revolution</h2>
-          <p>Advance America doesn't believe the answer to government failure is more government or less government. The answer is better government — institutions designed with the same level of intentionality we apply to every other complex system in modern life.</p>
-          <p>We're not aligned with either major party. We don't think the left-right divide is the most important fault line in American politics. The more important divide is between institutions that work and institutions that don't — and by that measure, most of what we have right now isn't working well enough.</p>
-        </div>
-
-        <div class="rule"></div>
-        <div class="ab-sect" style="margin-top:52px;">
-          <div class="label">Our Status</div>
-          <h2>Registered PAC · Est. 2026</h2>
-          <p>Advance America is a registered Political Action Committee operating under federal election law. Our filings are publicly available through the Federal Election Commission. We welcome scrutiny — transparency isn't a compliance obligation for us, it's a core value.</p>
-          <p>We're early. The movement is forming. This is exactly the moment when individual participation matters most — before the positions harden, while there's still room to shape what this becomes.</p>
-        </div>
-
-        <div class="rule"></div>
-        <div class="ab-sect" style="margin-top:52px;">
-          <div class="label">Get Involved</div>
-          <h2>This Is the Beginning</h2>
-          <p>If you believe American governance can be better — not left, not right, just better — we want to hear from you.</p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
-            <button class="btn btn-dark" onclick="goPage('home'); goSec('join')">Join the Movement</button>
-            <button class="btn btn-ghost" onclick="goPage('theory')">Read the Theory</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <footer>
-    <div class="foot-logo">Advance <span>America</span></div>
-    <ul class="foot-links">
-      <li><button onclick="goPage('home')">Home</button></li>
-      <li><button onclick="goPage('theory')">Theory</button></li>
-      <li><button onclick="goPage('home'); goSec('join')">Join</button></li>
-    </ul>
-    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
-  </footer>
-</div><!-- /pg-about -->
-
-
+  <div class="pt">
+    <div class="ab-hero">
+      <div class="wrap">
+        <div style="max-width:700px;">
+          <div class="label">About</div>
+          <h1 class="h1" style="font-size:clamp(2.4rem,5vw,4rem);margin-bottom:20px;">Why Advance America Exists</h1>
+          <p class="lead">We're a Political Action Committee organized around a single conviction: that the design of American government needs to be updated for the world we actually live in — not the world of 1787.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ab-body">
+      <div class="wrap">
+        <div class="ab-sect">
+          <div class="label">Our Mission</div>
+          <h2>Reform Without Revolution</h2>
+          <p>Advance America doesn't believe the answer to government failure is more government or less government. The answer is better government — institutions designed with the same level of intentionality we apply to every other complex system in modern life.</p>
+          <p>We're not aligned with either major party. We don't think the left-right divide is the most important fault line in American politics. The more important divide is between institutions that work and institutions that don't — and by that measure, most of what we have right now isn't working well enough.</p>
+        </div>
+        <div class="rule"></div>
+        <div class="ab-sect" style="margin-top:52px;">
+          <div class="label">Our Status</div>
+          <h2>Registered PAC · Est. 2026</h2>
+          <p>Advance America is a registered Political Action Committee operating under federal election law. Our filings are publicly available through the Federal Election Commission. We welcome scrutiny — transparency isn't a compliance obligation for us, it's a core value.</p>
+          <p>We're early. The movement is forming. This is exactly the moment when individual participation matters most — before the positions harden, while there's still room to shape what this becomes.</p>
+        </div>
+        <div class="rule"></div>
+        <div class="ab-sect" style="margin-top:52px;">
+          <div class="label">Get Involved</div>
+          <h2>This Is the Beginning</h2>
+          <p>If you believe American governance can be better — not left, not right, just better — we want to hear from you.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
+            <button class="btn btn-dark" onclick="goPage('home'); goSec('join')">Join the Movement</button>
+            <button class="btn btn-ghost" onclick="goPage('theory')">Read the Theory</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="foot-logo">Advance <span>America</span></div>
+    <ul class="foot-links">
+      <li><button onclick="goPage('home')">Home</button></li>
+      <li><button onclick="goPage('theory')">Theory</button></li>
+      <li><button onclick="goPage('home'); goSec('join')">Join</button></li>
+    </ul>
+    <div class="foot-copy">© 2026 Advance America PAC. All rights reserved.</div>
+  </footer>
+</div>
 <script>
-  // ── Page navigation ──────────────────────
-  function goPage(id) {
-    document.querySelectorAll('.page').forEach(function(p) {
-      p.classList.remove('active');
-    });
-    var target = document.getElementById('pg-' + id);
-    if (target) target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // ── Scroll to section on home page ───────
-  function goSec(id) {
-    setTimeout(function() {
-      var el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }
-
-  // ── Mobile menu ───────────────────────────
-  function toggleMob() {
-    var m = document.getElementById('mobMenu');
-    if (m) m.classList.toggle('open');
-  }
-  function closeMob() {
-    var m = document.getElementById('mobMenu');
-    if (m) m.classList.remove('open');
-  }
-
-  // ── Theory tab switching ──────────────────
-  // Wire up tabs after DOM loads
-  document.addEventListener('DOMContentLoaded', function() {
-    var tabs = document.querySelectorAll('.th-tab');
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        var panelId = tab.getAttribute('data-panel');
-        // deactivate all tabs and panels
-        tabs.forEach(function(t) { t.classList.remove('ton'); });
-        document.querySelectorAll('.th-panel').forEach(function(p) { p.classList.remove('pon'); });
-        // activate clicked tab and matching panel
-        tab.classList.add('ton');
-        var panel = document.getElementById('panel-' + panelId);
-        if (panel) panel.classList.add('pon');
-      });
-    });
-  });
-
-  // ── Waste filter ──────────────────────────
-  function filterW(cat, btn) {
-    document.querySelectorAll('.f-btn').forEach(function(b) { b.classList.remove('on'); });
-    btn.classList.add('on');
-    document.querySelectorAll('.wr').forEach(function(row) {
-      if (cat === 'all' || row.getAttribute('data-c') === cat) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
-    });
-  }
-
-  // ── Join form ─────────────────────────────
-  function handleJoin(btn) {
-    var form = btn.closest('.join-form');
-    var inputs = form.querySelectorAll('input');
-    var valid = true;
-    inputs.forEach(function(i) {
-      if (!i.value.trim()) {
-        i.style.borderColor = '#C8102E';
-        valid = false;
-      } else {
-        i.style.borderColor = '';
-      }
-    });
-    if (!valid) return;
-    btn.textContent = '✓ You\'re on the list';
-    btn.style.background = '#2a7a3a';
-    btn.disabled = true;
-  }
+  function goPage(id) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    var target = document.getElementById('pg-' + id);
+    if (target) target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function goSec(id) {
+    setTimeout(function() {
+      var el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+  function toggleMob() {
+    var m = document.getElementById('mobMenu');
+    if (m) m.classList.toggle('open');
+  }
+  function closeMob() {
+    var m = document.getElementById('mobMenu');
+    if (m) m.classList.remove('open');
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var tabs = document.querySelectorAll('.th-tab');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var panelId = tab.getAttribute('data-panel');
+        tabs.forEach(function(t) { t.classList.remove('ton'); });
+        document.querySelectorAll('.th-panel').forEach(function(p) { p.classList.remove('pon'); });
+        tab.classList.add('ton');
+        var panel = document.getElementById('panel-' + panelId);
+        if (panel) panel.classList.add('pon');
+      });
+    });
+  });
+  function filterW(cat, btn) {
+    document.querySelectorAll('.f-btn').forEach(function(b) { b.classList.remove('on'); });
+    btn.classList.add('on');
+    document.querySelectorAll('.wr').forEach(function(row) {
+      if (cat === 'all' || row.getAttribute('data-c') === cat) { row.style.display = ''; }
+      else { row.style.display = 'none'; }
+    });
+  }
+  function handleJoin(btn) {
+    var form = btn.closest('.join-form');
+    var inputs = form.querySelectorAll('input');
+    var valid = true;
+    inputs.forEach(function(i) {
+      if (!i.value.trim()) { i.style.borderColor = '#C8102E'; valid = false; }
+      else { i.style.borderColor = ''; }
+    });
+    if (!valid) return;
+    btn.textContent = '✓ You\'re on the list';
+    btn.style.background = '#2a7a3a';
+    btn.disabled = true;
+  }
 </script>
-
 </body>
 </html>
